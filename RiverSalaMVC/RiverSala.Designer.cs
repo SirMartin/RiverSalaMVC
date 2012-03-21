@@ -20,6 +20,7 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("RiverSalaDB", "FK_Comentario_Usuario", "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RiverSalaMVC.Usuario), "Comentario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RiverSalaMVC.Comentario), true)]
 [assembly: EdmRelationshipAttribute("RiverSalaDB", "FK_Noticia_Usuario", "Usuario", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RiverSalaMVC.Usuario), "Noticia", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RiverSalaMVC.Noticia), true)]
+[assembly: EdmRelationshipAttribute("RiverSalaDB", "FK_Comentario_Noticia", "Noticia", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RiverSalaMVC.Noticia), "Comentario", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RiverSalaMVC.Comentario), true)]
 
 #endregion
 
@@ -171,13 +172,15 @@ namespace RiverSalaMVC
         /// <param name="idUsuario">Initial value of the IdUsuario property.</param>
         /// <param name="texto">Initial value of the Texto property.</param>
         /// <param name="fecha">Initial value of the Fecha property.</param>
-        public static Comentario CreateComentario(global::System.Int32 id, global::System.Int32 idUsuario, global::System.String texto, global::System.DateTime fecha)
+        /// <param name="idNoticia">Initial value of the IdNoticia property.</param>
+        public static Comentario CreateComentario(global::System.Int32 id, global::System.Int32 idUsuario, global::System.String texto, global::System.DateTime fecha, global::System.Int32 idNoticia)
         {
             Comentario comentario = new Comentario();
             comentario.ID = id;
             comentario.IdUsuario = idUsuario;
             comentario.Texto = texto;
             comentario.Fecha = fecha;
+            comentario.IdNoticia = idNoticia;
             return comentario;
         }
 
@@ -282,6 +285,30 @@ namespace RiverSalaMVC
         private global::System.DateTime _Fecha;
         partial void OnFechaChanging(global::System.DateTime value);
         partial void OnFechaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IdNoticia
+        {
+            get
+            {
+                return _IdNoticia;
+            }
+            set
+            {
+                OnIdNoticiaChanging(value);
+                ReportPropertyChanging("IdNoticia");
+                _IdNoticia = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IdNoticia");
+                OnIdNoticiaChanged();
+            }
+        }
+        private global::System.Int32 _IdNoticia;
+        partial void OnIdNoticiaChanging(global::System.Int32 value);
+        partial void OnIdNoticiaChanged();
 
         #endregion
     
@@ -321,6 +348,44 @@ namespace RiverSalaMVC
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Usuario>("RiverSalaDB.FK_Comentario_Usuario", "Usuario", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RiverSalaDB", "FK_Comentario_Noticia", "Noticia")]
+        public Noticia Noticia
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Noticia>("RiverSalaDB.FK_Comentario_Noticia", "Noticia").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Noticia>("RiverSalaDB.FK_Comentario_Noticia", "Noticia").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Noticia> NoticiaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Noticia>("RiverSalaDB.FK_Comentario_Noticia", "Noticia");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Noticia>("RiverSalaDB.FK_Comentario_Noticia", "Noticia", value);
                 }
             }
         }
@@ -547,6 +612,28 @@ namespace RiverSalaMVC
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Usuario>("RiverSalaDB.FK_Noticia_Usuario", "Usuario", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("RiverSalaDB", "FK_Comentario_Noticia", "Comentario")]
+        public EntityCollection<Comentario> Comentario
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Comentario>("RiverSalaDB.FK_Comentario_Noticia", "Comentario");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Comentario>("RiverSalaDB.FK_Comentario_Noticia", "Comentario", value);
                 }
             }
         }

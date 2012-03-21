@@ -73,6 +73,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\NoticiaModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RiverSala.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -81,6 +82,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\elave.gif" />
+    <Content Include="Content\images\piribi.jpg" />
+    <Content Include="Content\images\style\bg.jpg" />
+    <Content Include="Content\images\style\escudo.gif" />
+    <Content Include="Content\images\tramigest.gif" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\images\style\banner.jpg" />
+    <Content Include="Content\images\style\clock.gif" />
+    <Content Include="Content\images\style\comment.gif" />
+    <Content Include="Content\images\style\document.gif" />
+    <Content Include="Content\images\style\menu_arrow.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -126,7 +138,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

@@ -1,8 +1,41 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<RiverSalaMVC.Models.NoticiaModel>
+@foreach (var item in Model)
+{
+    <div align="left">
+        <h2>
+            @item.Titulo</h2>
+    </div>
+    <div class="noticia">
+        <img alt="Noticia" class="noborder" src="Content/images/style/escudo.gif" title="escudo" />
+        @Html.Raw(item.Contenido)</div>
+    <p class="post">
+        <a href="index.php?pag=editar_noticia.php&noticia=" class="readmore">Editar Noticia</a>
+        @if (item.Comentarios > 0)
+        {
+            <a class="comments" href="?pag=comentarios.php&noticia=">Hay @item.Comentarios comentarios</a>
+        }
+        else
+        {
+            <a class="comments" href="?pag=comentarios.php&noticia=">No hay comentarios</a>
+        }
+        <span class="date">Publicada el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
+            <a href="?pag=jugador.php&ver=<?php print $idautor;?>">
+                @item.Autor</a></span>
+    </p>
 }
-
-<h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+<br />
+<br />
+<div align="center">
+    @if (ViewBag.PagePrev != -1)
+    {
+        @Html.ActionLink("Anteriores", "Index", new { page = ViewBag.PagePrev })
+    }
+    @if ((ViewBag.PagePrev != -1) && (ViewBag.PageNext != -1))
+    {
+        @:&nbsp;|&nbsp;
+    }
+    @if (ViewBag.PageNext != -1)
+    {
+        @Html.ActionLink("Siguientes", "Index", new { page = ViewBag.PageNext })
+    }
+</div>

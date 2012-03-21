@@ -4,11 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RiverSalaDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="RiverSalaDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="RiverSalaDBStoreContainer">
           <EntitySet Name="Comentario" EntityType="RiverSalaDB.Store.Comentario" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Noticia" EntityType="RiverSalaDB.Store.Noticia" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Usuario" EntityType="RiverSalaDB.Store.Usuario" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Comentario_Noticia" Association="RiverSalaDB.Store.FK_Comentario_Noticia">
+            <End Role="Noticia" EntitySet="Noticia" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comentario_Usuario" Association="RiverSalaDB.Store.FK_Comentario_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comentario" EntitySet="Comentario" />
@@ -26,6 +30,7 @@
           <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="Texto" Type="text" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="IdNoticia" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Noticia">
           <Key>
@@ -51,6 +56,18 @@
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Comentario_Noticia">
+          <End Role="Noticia" Type="RiverSalaDB.Store.Noticia" Multiplicity="1" />
+          <End Role="Comentario" Type="RiverSalaDB.Store.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Noticia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="IdNoticia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comentario_Usuario">
           <End Role="Usuario" Type="RiverSalaDB.Store.Usuario" Multiplicity="1" />
           <End Role="Comentario" Type="RiverSalaDB.Store.Comentario" Multiplicity="*" />
@@ -75,8 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RiverSalaDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -92,6 +108,10 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Noticia" EntitySet="Noticia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Noticia" Association="RiverSalaDB.FK_Comentario_Noticia">
+            <End Role="Noticia" EntitySet="Noticia" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comentario">
           <Key>
@@ -102,6 +122,8 @@
           <Property Name="Texto" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="RiverSalaDB.FK_Comentario_Usuario" FromRole="Comentario" ToRole="Usuario" />
+          <Property Type="Int32" Name="IdNoticia" Nullable="false" />
+          <NavigationProperty Name="Noticia" Relationship="RiverSalaDB.FK_Comentario_Noticia" FromRole="Comentario" ToRole="Noticia" />
         </EntityType>
         <EntityType Name="Noticia">
           <Key>
@@ -114,6 +136,7 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" />
           <Property Name="EsPrivada" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="RiverSalaDB.FK_Noticia_Usuario" FromRole="Noticia" ToRole="Usuario" />
+          <NavigationProperty Name="Comentario" Relationship="RiverSalaDB.FK_Comentario_Noticia" FromRole="Noticia" ToRole="Comentario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -154,6 +177,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comentario_Noticia">
+          <End Type="RiverSalaDB.Noticia" Role="Noticia" Multiplicity="1" />
+          <End Type="RiverSalaDB.Comentario" Role="Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Noticia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="IdNoticia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -161,7 +196,8 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RiverSalaDBStoreContainer" CdmEntityContainer="DB_38969_riversalaEntities">
           <EntitySetMapping Name="Comentario"><EntityTypeMapping TypeName="RiverSalaDB.Comentario"><MappingFragment StoreEntitySet="Comentario">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="IdNoticia" ColumnName="IdNoticia" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
             <ScalarProperty Name="Texto" ColumnName="Texto" />
             <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -209,12 +245,16 @@
         <EntityTypeShape EntityType="RiverSalaDB.Noticia" Width="1.5" PointX="3" PointY="3.75" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverSalaDB.Usuario" Width="1.5" PointX="0.75" PointY="2.125" Height="2.9417936197916661" IsExpanded="true" />
         <AssociationConnector Association="RiverSalaDB.FK_Comentario_Usuario" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.6151432291666667" />
-          <ConnectorPoint PointX="3" PointY="2.6151432291666667" />
+          <ConnectorPoint PointX="2.25" PointY="2.8074446614583328" />
+          <ConnectorPoint PointX="3" PointY="2.8074446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="RiverSalaDB.FK_Noticia_Usuario" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="4.4083968098958328" />
           <ConnectorPoint PointX="3" PointY="4.4083968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="RiverSalaDB.FK_Comentario_Noticia" >
+          <ConnectorPoint PointX="3.75" PointY="3.75" />
+          <ConnectorPoint PointX="3.75" PointY="3.4898893229166661" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
