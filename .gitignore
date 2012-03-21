@@ -1,0 +1,11 @@
+bin/
+obj/
+RiverSalaMVC/*.dll
+RiverSalaMVC.Tests/*.dll
+RiverSalaMVC.Tests/*.txt
+RiverSalaMVC.Tests/*.cache
+TestResults
+*.pdb
+*.suo
+RiverSalaMVC/App_Error/*
+*.sdf
