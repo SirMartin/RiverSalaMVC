@@ -1,0 +1,43 @@
+﻿@model RiverSalaMVC.Noticia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Noticia</legend>
+
+    <div class="display-label">Titulo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Titulo)
+    </div>
+
+    <div class="display-label">Contenido</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Contenido)
+    </div>
+
+    <div class="display-label">Usuario</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario.Nombre)
+    </div>
+
+    <div class="display-label">Fecha</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+
+    <div class="display-label">EsPrivada</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EsPrivada)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

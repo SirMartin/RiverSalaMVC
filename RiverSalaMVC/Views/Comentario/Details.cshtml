@@ -1,0 +1,30 @@
+﻿@model RiverSalaMVC.Comentario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Comentario</legend>
+
+    <div class="display-label">Usuario</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Usuario.Nombre)
+    </div>
+
+    <div class="display-label">Texto</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Texto)
+    </div>
+
+    <div class="display-label">Fecha</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
