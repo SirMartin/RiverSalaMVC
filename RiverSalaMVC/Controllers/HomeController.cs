@@ -7,7 +7,7 @@ using RiverSalaMVC.Models;
 
 namespace RiverSalaMVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();

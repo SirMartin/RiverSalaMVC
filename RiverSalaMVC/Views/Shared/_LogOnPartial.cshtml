@@ -1,20 +1,24 @@
-﻿@if (Request.IsAuthenticated)
+﻿<h3>
+@if (Request.IsAuthenticated)
 {
-    <text>Welcome <strong>@User.Identity.Name</strong>! [ @Html.ActionLink("Log Off", "LogOff", "Account")
-    ]</text>
+    <h3>
+        Hola @User.Identity.Name</h3>
 }
 else
 {
-    @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+    @: @Html.ActionLink("Registrate", "Register", "Account")  o @Html.ActionLink("Logueate", "LogOn", "Account")
 }
-<h2>
-    Hola QUIENSEAS</h2>
+</h3>
 <div class="navlist">
     <ul>
         <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
         <li>@Html.ActionLink("Enlaces de Interes", "Index", "Links", null, null)</li>
-        <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
-        <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
-        <li><a href="salir.php">Salir!</a></li>
+        @if (Request.IsAuthenticated)
+        {
+        
+            <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
+            <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
+            <li>@Html.ActionLink("Salir", "LogOff", "Account")</li>
+        }
     </ul>
 </div>

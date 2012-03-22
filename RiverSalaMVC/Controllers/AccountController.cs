@@ -6,11 +6,14 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using RiverSalaMVC.Models;
+using RiverSalaMVC.Models.Security;
 
 namespace RiverSalaMVC.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
+        private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
+        RiverSalaMembershipProvider RiverSalaMembership = new RiverSalaMembershipProvider();
 
         //
         // GET: /Account/LogOn
@@ -28,7 +31,7 @@ namespace RiverSalaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.Email, model.Password))
+                if (RiverSalaMembership.ValidateUser(model.Email, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -43,7 +46,15 @@ namespace RiverSalaMVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    //Comprobamos si el usuario existe y no esta activo o es incorrecto.
+                    if (RiverSalaMembership.IsUserValidated(model.Email))
+                    {
+                        ModelState.AddModelError("", "El nombre de usuario o la contraseña es incorrecto.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Su usuario no ha sido validado todavía.");
+                    }
                 }
             }
 
@@ -78,8 +89,7 @@ namespace RiverSalaMVC.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
+                MembershipCreateStatus createStatus = RiverSalaMembership.CreateUser(model.Email, model.Password, model.Nombre, model.Apellidos);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
