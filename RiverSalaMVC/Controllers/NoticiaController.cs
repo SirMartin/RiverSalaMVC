@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RiverSalaMVC;
+using RiverSalaMVC.Models;
 
 namespace RiverSalaMVC.Controllers
 { 
@@ -27,8 +28,49 @@ namespace RiverSalaMVC.Controllers
 
         public ViewResult Details(int id)
         {
-            Noticia noticia = db.Noticia.Single(n => n.ID == id);
+            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
             return View(noticia);
+        }
+
+        //
+        // GET: /Noticia/Comentarios/5
+
+        public ViewResult Comentarios(int id)
+        {
+            //Recuperamos la noticia.
+            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
+            NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
+
+            //Recuperamos los comentarios de la noticia y los pasamos en un ViewBag.
+            List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
+            ViewBag.Comentarios = comentarios;
+
+            return View(notMod);
+        }
+
+        [HttpPost]
+        public ViewResult Comentarios(int id, FormCollection collection)
+        {
+            //Insertamos el comentario.
+            Comentario comentario = new Comentario();
+            comentario.Texto = collection["contenido"].ToString();
+            comentario.IdUsuario = 1;
+            comentario.Fecha = DateTime.Now;
+            comentario.IdNoticia = id;
+
+            //Guardamos el comentario.
+            db.Comentario.AddObject(comentario);
+            db.SaveChanges();
+
+            //Recuperamos la noticia.
+            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
+            NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
+
+            //Recuperamos los comentarios de la noticia y los pasamos en un ViewBag.
+            List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
+            ViewBag.Comentarios = comentarios;
+
+            return View(notMod);
         }
 
         //
@@ -36,7 +78,6 @@ namespace RiverSalaMVC.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdUsuario = new SelectList(db.Usuario, "ID", "Nombre");
             return View();
         } 
 
@@ -46,6 +87,10 @@ namespace RiverSalaMVC.Controllers
         [HttpPost]
         public ActionResult Create(Noticia noticia)
         {
+            //Ponemos los datos que faltan.
+            noticia.IdUsuario = 1;
+            noticia.Fecha = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Noticia.AddObject(noticia);
@@ -53,7 +98,6 @@ namespace RiverSalaMVC.Controllers
                 return RedirectToAction("Index");  
             }
 
-            ViewBag.IdUsuario = new SelectList(db.Usuario, "ID", "Nombre", noticia.IdUsuario);
             return View(noticia);
         }
         

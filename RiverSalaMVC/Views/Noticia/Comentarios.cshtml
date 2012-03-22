@@ -1,0 +1,99 @@
+﻿@model RiverSalaMVC.Models.NoticiaModel
+@{
+    ViewBag.Title = "Details";
+}
+<!-- Aqui el SCRIPT de Javascript que escribe en el textarea -->
+<script type="text/javascript">
+    function poner_texto(texto) {
+        alert("HOLA");
+        var txt = $("#contenido").val();
+        txt = txt + texto;
+        $("#contenido").val(txt);
+    }
+</script>
+<div style="text-align: left">
+    <h2>
+        @Model.Titulo</h2>
+</div>
+<div class="noticia">
+    <img alt="Noticia" class="noborder" src="/Content/images/style/escudo.gif" title="escudo" />
+    @Html.Raw(Model.Contenido)</div>
+<p class="post">
+    @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @Model.IdNoticia }, new { @class = "readmore" })
+    @if (Model.Comentarios > 0)
+    {
+        @Html.ActionLink("Hay " + Model.Comentarios + " comentarios", "Comentarios", "Noticia", new { id = @Model.IdNoticia }, new { @class = "comments" })
+    }
+    else
+    {
+        @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @Model.IdNoticia }, new { @class = "comments" })
+    }
+    <span class="date">Publicada el @Model.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
+        @Html.ActionLink(Model.Autor, "Details", "Usuario", new {id = Model.IdAutor}, null)</span>
+</p>
+<div align="center">
+    <h2>
+        <u>COMENTARIOS</u></h2>
+</div>
+<br>
+@foreach (RiverSalaMVC.Comentario item in ViewBag.Comentarios)
+{
+    <div class="noticia">
+        <img alt="Noticia" class="noborder" width="60" height="75" src="fotos/<?php echo $imagenautor;?>"
+            title="" />
+        @Html.Raw(item.Texto)</div>
+    <p class="post">
+        <a class="readmore">posteos</a> <span class="date">Comentado el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm")
+            por @Html.ActionLink(item.Usuario.Nombre, "Details", "Usuario", new { id = item.IdUsuario }, null)</span>
+    </p>
+    <br />
+    <hr />
+    <br />
+}
+<!-- SECCION PARA ESCRIBIR UN COMENTARIO NUEVO -->
+@using (Html.BeginForm())
+{
+    <div align="center">
+        <p align="left">
+            Introduce tu comentario:
+        </p>
+        <table style="border-style: outset" border="4" cellpadding="0" cellspacing="0" style="border-collapse: collapse"
+            bgcolor="#DDDDDD" bordercolor="#CCCCCC" width="400" height="140">
+            <tr>
+                <td width="400" height="140">
+                    <textarea name="contenido" cols="48" rows="9" bgcolor="#DDDDDD" id="contenido"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="400">
+                    <p align="center">
+                        EMOTICONOS (Pulsa sobre ellos para añadirlos al comentario)</p>
+                    <img src="/Content/images/emoticons/1.gif" onclick="poner_texto(':arg')" />
+                    <img src="/Content/images/emoticons/2.gif" onclick="poner_texto(':)')" />
+                    <img src="/Content/images/emoticons/3.gif" onclick="poner_texto(':(')" />
+                    <img src="/Content/images/emoticons/4.gif" onclick="poner_texto(':D')" />
+                    <img src="/Content/images/emoticons/5.gif" onclick="poner_texto(':ninja:')" />
+                    <img src="/Content/images/emoticons/6.gif" onclick="poner_texto(':ataque:')" />
+                    <img src="/Content/images/emoticons/7.gif" onclick="poner_texto('xD')" />
+                    <br />
+                    <img src="/Content/images/emoticons/8.gif" onclick="poner_texto(':9:')" />
+                    <img src="/Content/images/emoticons/9.gif" onclick="poner_texto(':heavy:')" />
+                    <img src="/Content/images/emoticons/platano1.gif" onclick="poner_texto(':banana:')" />
+                    <img src="/Content/images/emoticons/platano2.gif" onclick="poner_texto(':banana2:')" />
+                    <img src="/Content/images/emoticons/sparta1.gif" onclick="poner_texto(':bailon:')" />
+                    <br />
+                    <img src="/Content/images/emoticons/sparta2.gif" width="30%" onclick="poner_texto(':gato:')" />
+                    <img src="/Content/images/emoticons/sparta3.gif" onclick="poner_texto(':ostia:')" />
+                    <br />
+                    <img src="/Content/images/emoticons/sparta4.gif" width="50%" onclick="poner_texto(':panda:')" />
+                    <img src="/Content/images/emoticons/stewie.gif" width="25%" onclick="poner_texto(':stewie:')" />
+                    <br />
+                    <img src="/Content/images/emoticons/river.gif" width="52" onclick="poner_texto(':river:')" />
+                    <img src="/Content/images/emoticons/kitt.gif" onclick="poner_texto(':kitt:')" />
+                </td>
+            </tr>
+        </table>
+        <br />
+        <input type="submit" value="Enviar Comentario" name="enviar">
+    </div>
+}

@@ -32,25 +32,7 @@ namespace RiverSalaMVC.Controllers
                 }
             }
 
-            List<NoticiaModel> news = new List<NoticiaModel>();
-            foreach (Noticia noticia in noticias)
-            {
-                int numComentarios = db.Comentario.Where(g => g.IdNoticia == noticia.ID).Count();
-
-                NoticiaModel notMod = new NoticiaModel()
-                {
-                    Autor = noticia.Usuario.Nombre,
-                    Contenido = noticia.Contenido,
-                    Fecha = noticia.Fecha,
-                    IdAutor = noticia.IdUsuario,
-                    IdNoticia = noticia.ID,
-                    Titulo = noticia.Titulo,
-                    Comentarios = numComentarios
-                };
-
-                //Añadimos a la lista.
-                news.Add(notMod);
-            }
+            List<NoticiaModel> news = Utils.Utils.ConvertNoticiaToNoticiaModel(noticias);
 
             //Mandamos en un ViewBag la paginacion hecha, para el enlace.
             int pagePrev = (counter - 10) / 10;
