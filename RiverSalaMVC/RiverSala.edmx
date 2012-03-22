@@ -55,6 +55,8 @@
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Validado" Type="bit" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comentario_Noticia">
           <End Role="Noticia" Type="RiverSalaDB.Store.Noticia" Multiplicity="1" />
@@ -152,6 +154,8 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Comentario" Relationship="RiverSalaDB.FK_Comentario_Usuario" FromRole="Usuario" ToRole="Comentario" />
           <NavigationProperty Name="Noticia" Relationship="RiverSalaDB.FK_Noticia_Usuario" FromRole="Usuario" ToRole="Noticia" />
+          <Property Type="Boolean" Name="Validado" Nullable="false" />
+          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comentario_Usuario">
           <End Role="Usuario" Type="RiverSalaDB.Usuario" Multiplicity="1" />
@@ -211,7 +215,9 @@
             <ScalarProperty Name="EsPrivada" ColumnName="EsPrivada" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Usuario"><EntityTypeMapping TypeName="RiverSalaDB.Usuario"><MappingFragment StoreEntitySet="Usuario">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Validado" ColumnName="Validado" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Nombre" ColumnName="Nombre" />
             <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
             <ScalarProperty Name="EsJugador" ColumnName="EsJugador" />
