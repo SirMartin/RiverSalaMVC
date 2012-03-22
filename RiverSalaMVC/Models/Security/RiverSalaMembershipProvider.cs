@@ -1,0 +1,198 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace RiverSalaMVC.Models.Security
+{
+    public class RiverSalaMembershipProvider : System.Web.Security.MembershipProvider
+    {
+        public override string ApplicationName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override bool ChangePassword(string username, string oldPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Web.Security.MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out System.Web.Security.MembershipCreateStatus status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public System.Web.Security.MembershipCreateStatus CreateUser(string email, string password, string nombre, string apellidos)
+        {
+            DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
+
+            Usuario user = new Usuario()
+            {
+                Activo = false,
+                Apellidos = apellidos,
+                Email = email,
+                EsJugador = false,
+                Nombre = nombre,
+                Password = password,
+                Posicion = String.Empty
+            };
+
+            //Comprobamos que el email este libre.
+            var existEmail = (from u in db.Usuario
+                        where u.Email == email
+                        select u).FirstOrDefault();
+
+            if ((existEmail != null))
+            {
+                //Existe el email.
+                return System.Web.Security.MembershipCreateStatus.DuplicateEmail;
+            }
+
+            try
+            {
+                //Intentamos guardar el usuario.
+                db.Usuario.AddObject(user);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return System.Web.Security.MembershipCreateStatus.UserRejected;
+            }
+
+            //Devolvemos que se ha guardado correctamente.
+            return System.Web.Security.MembershipCreateStatus.Success;
+        }
+
+        public override bool DeleteUser(string username, bool deleteAllRelatedData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool EnablePasswordReset
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override bool EnablePasswordRetrieval
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override System.Web.Security.MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Web.Security.MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Web.Security.MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetNumberOfUsersOnline()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetPassword(string username, string answer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Web.Security.MembershipUser GetUser(string username, bool userIsOnline)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override System.Web.Security.MembershipUser GetUser(object providerUserKey, bool userIsOnline)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetUserNameByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MaxInvalidPasswordAttempts
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override int MinRequiredNonAlphanumericCharacters
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override int MinRequiredPasswordLength
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override int PasswordAttemptWindow
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override System.Web.Security.MembershipPasswordFormat PasswordFormat
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override string PasswordStrengthRegularExpression
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override bool RequiresQuestionAndAnswer
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override bool RequiresUniqueEmail
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override string ResetPassword(string username, string answer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool UnlockUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateUser(System.Web.Security.MembershipUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ValidateUser(string username, string password)
+        {
+            DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
+            var user = (from u in db.Usuario
+                        where u.Email == username && u.Password == password
+                        select u).FirstOrDefault();
+
+            return (user != null);
+        }
+    }
+}
