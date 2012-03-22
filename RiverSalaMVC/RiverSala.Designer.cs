@@ -661,7 +661,9 @@ namespace RiverSalaMVC
         /// <param name="activo">Initial value of the Activo property.</param>
         /// <param name="email">Initial value of the Email property.</param>
         /// <param name="password">Initial value of the Password property.</param>
-        public static Usuario CreateUsuario(global::System.Int32 id, global::System.String nombre, global::System.String apellidos, global::System.Boolean esJugador, global::System.Boolean activo, global::System.String email, global::System.String password)
+        /// <param name="validado">Initial value of the Validado property.</param>
+        /// <param name="isAdmin">Initial value of the IsAdmin property.</param>
+        public static Usuario CreateUsuario(global::System.Int32 id, global::System.String nombre, global::System.String apellidos, global::System.Boolean esJugador, global::System.Boolean activo, global::System.String email, global::System.String password, global::System.Boolean validado, global::System.Boolean isAdmin)
         {
             Usuario usuario = new Usuario();
             usuario.ID = id;
@@ -671,6 +673,8 @@ namespace RiverSalaMVC
             usuario.Activo = activo;
             usuario.Email = email;
             usuario.Password = password;
+            usuario.Validado = validado;
+            usuario.IsAdmin = isAdmin;
             return usuario;
         }
 
@@ -871,6 +875,54 @@ namespace RiverSalaMVC
         private global::System.String _Password;
         partial void OnPasswordChanging(global::System.String value);
         partial void OnPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Validado
+        {
+            get
+            {
+                return _Validado;
+            }
+            set
+            {
+                OnValidadoChanging(value);
+                ReportPropertyChanging("Validado");
+                _Validado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Validado");
+                OnValidadoChanged();
+            }
+        }
+        private global::System.Boolean _Validado;
+        partial void OnValidadoChanging(global::System.Boolean value);
+        partial void OnValidadoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsAdmin
+        {
+            get
+            {
+                return _IsAdmin;
+            }
+            set
+            {
+                OnIsAdminChanging(value);
+                ReportPropertyChanging("IsAdmin");
+                _IsAdmin = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsAdmin");
+                OnIsAdminChanged();
+            }
+        }
+        private global::System.Boolean _IsAdmin;
+        partial void OnIsAdminChanging(global::System.Boolean value);
+        partial void OnIsAdminChanged();
 
         #endregion
     
