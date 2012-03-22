@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using RiverSalaMVC;
 
 namespace RiverSalaMVC.Controllers
-{ 
-    public class UsuarioController : Controller
+{
+    public class UsuarioController : BaseController
     {
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
 

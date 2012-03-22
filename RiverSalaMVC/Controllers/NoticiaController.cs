@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using RiverSalaMVC;
 using RiverSalaMVC.Models;
+using RiverSalaMVC.Models.Security;
 
 namespace RiverSalaMVC.Controllers
-{ 
-    public class NoticiaController : Controller
+{
+    public class NoticiaController : BaseController
     {
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
 
@@ -49,6 +50,7 @@ namespace RiverSalaMVC.Controllers
         }
 
         [HttpPost]
+        [AuthorizationAttributes.UserAuthorize]
         public ViewResult Comentarios(int id, FormCollection collection)
         {
             //Insertamos el comentario.

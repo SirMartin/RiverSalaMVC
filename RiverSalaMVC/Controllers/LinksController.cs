@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace RiverSalaMVC.Controllers
 {
-    public class LinksController : Controller
+    public class LinksController : BaseController
     {
         //
         // GET: /Links/
