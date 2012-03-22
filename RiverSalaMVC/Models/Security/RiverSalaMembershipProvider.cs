@@ -46,7 +46,9 @@ namespace RiverSalaMVC.Models.Security
                 EsJugador = false,
                 Nombre = nombre,
                 Password = password,
-                Posicion = String.Empty
+                Posicion = String.Empty,
+                Validado = false,
+                IsAdmin = false
             };
 
             //Comprobamos que el email este libre.
@@ -125,6 +127,26 @@ namespace RiverSalaMVC.Models.Security
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Comprobamos si el usuario ha sido validado por el administrador.
+        /// </summary>
+        /// <param name="email">El email del usuario.</param>
+        /// <returns></returns>
+        public bool IsUserValidated(string email)
+        {
+            DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
+            var user = (from u in db.Usuario
+                        where u.Email == email
+                        select u).FirstOrDefault();
+
+            if (user != null)
+            {
+                return user.Validado;
+            }
+
+            return false;
+        }
+
         public override string GetUserNameByEmail(string email)
         {
             throw new NotImplementedException();
@@ -185,11 +207,17 @@ namespace RiverSalaMVC.Models.Security
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Buscamos usuarios que coincidan en email y password y que esten validados por el admin.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public override bool ValidateUser(string username, string password)
         {
             DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
             var user = (from u in db.Usuario
-                        where u.Email == username && u.Password == password
+                        where u.Email == username && u.Password == password && u.Validado == true
                         select u).FirstOrDefault();
 
             return (user != null);
