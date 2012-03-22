@@ -15,32 +15,21 @@
         </div>
         <div id="navcontainer">
             <ul id="navlist">
-                <li id="active"><a id="current" href="index.php">NOTICIAS</a></li>
+                <li id="active">@Html.ActionLink("NOTICIAS", "Index", "Home", null, new { id="current"})</li>
                 <li><a href="club.php">EL CLUB</a></li>
                 <li><a href="clasificacion.php">CLASIFICACIÓN</a></li>
                 <li><a href="resultados.php">RESULTADOS</a></li>
-                <li><a href="equipos.php">PLANTILLA</a></li>
+                <li>@Html.ActionLink("PLANTILLA", "Index", "Usuario", null, null)</li>
             </ul>
         </div>
         <div id="sidebar">
             <h2>
-                Secciones</h2>
-            <div class="navlist">
-                <ul>
-                    <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
-                    <li><a href="index.php?pag=estadisticas.php">Estadisticas</a></li>
-                    <li><a href="index.php?pag=links.php">Enlaces de Interes</a></li>
-                </ul>
-            </div>
-            <h2>
                 Hola QUIENSEAS</h2>
             <div class="navlist">
                 <ul>
-                    <li><a href="index.php?pag=enviar_noticia.php">Publicar Noticia</a></li>
-                    <li><a href="index.php?pag=revisar_resultados.php">Revisar Resultados</a></li>
-                    <li><a href="index.php?pag=votos.php">Votar Compañeros!!!</a></li>
-                    <li><a href="index.php?pag=menu_river.php">Resultados River Sala</a></li>
-                    <li><a href="index.php?pag=results_ligas.php">Introducir Resultados</a></li>
+                    <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
+                    <li>@Html.ActionLink("Enlaces de Interes", "Index", "Links", null, null)</li>
+                    <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
                     <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
                     <li><a href="salir.php">Salir!</a></li>
                 </ul>
@@ -66,7 +55,7 @@
             <div id="footer">
                 <p>
                     <a href="/">homepage</a> | <a href="mailto:webmaster@riversala.com">contacto</a>
-                    | Diseño <a href="http://www.piribisoft.com">PiribiSoft</a> | Pagina Web Oficial
+                    | Realizada por <a href="http://www.piribisoft.com">PiribiSoft</a> | Pagina Web Oficial
                     Club Atletico River Sala Zaragoza. | <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/">
                         <img alt="Creative Commons License" style="border-width: 0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/es/80x15.png" /></a>
                     2008-2012</p>
