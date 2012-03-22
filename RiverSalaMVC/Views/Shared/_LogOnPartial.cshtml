@@ -1,7 +1,20 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+﻿@if (Request.IsAuthenticated)
+{
+    <text>Welcome <strong>@User.Identity.Name</strong>! [ @Html.ActionLink("Log Off", "LogOff", "Account")
+    ]</text>
 }
-else {
+else
+{
     @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
 }
+<h2>
+    Hola QUIENSEAS</h2>
+<div class="navlist">
+    <ul>
+        <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
+        <li>@Html.ActionLink("Enlaces de Interes", "Index", "Links", null, null)</li>
+        <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
+        <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
+        <li><a href="salir.php">Salir!</a></li>
+    </ul>
+</div>

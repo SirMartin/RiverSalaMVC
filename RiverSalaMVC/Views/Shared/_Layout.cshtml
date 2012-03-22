@@ -23,17 +23,7 @@
             </ul>
         </div>
         <div id="sidebar">
-            <h2>
-                Hola QUIENSEAS</h2>
-            <div class="navlist">
-                <ul>
-                    <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
-                    <li>@Html.ActionLink("Enlaces de Interes", "Index", "Links", null, null)</li>
-                    <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
-                    <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
-                    <li><a href="salir.php">Salir!</a></li>
-                </ul>
-            </div>
+            @Html.Partial("_LogOnPartial")
             <!-- COMIENZO PATROCINADORES -->
             <p>
                 <h2>

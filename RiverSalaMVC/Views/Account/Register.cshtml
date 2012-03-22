@@ -1,15 +1,11 @@
 ﻿@model RiverSalaMVC.Models.RegisterModel
 
-@{
-    ViewBag.Title = "Register";
-}
-
-<h2>Create a New Account</h2>
+<h2>Create una nueva cuenta</h2>
 <p>
-    Use the form below to create a new account. 
+    Utiliza el formulario de abajo para crear una nueva cuenta en RiverSala.com 
 </p>
 <p>
-    Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.
+    La contraseña debe tener un mínimo de @Membership.MinRequiredPasswordLength carácteres de longitud.
 </p>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -19,7 +15,7 @@
     @Html.ValidationSummary(true, "No se ha podido crear la cuenta. Corrige los errores y vuelve a probar.")
     <div>
         <fieldset>
-            <legend>Account Information</legend>
+            <legend>Información de tu cuenta</legend>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Nombre)
@@ -62,7 +58,7 @@
             </div>
 
             <p>
-                <input type="submit" value="Register" />
+                <input type="submit" value="Crear Cuenta" />
             </p>
         </fieldset>
     </div>
