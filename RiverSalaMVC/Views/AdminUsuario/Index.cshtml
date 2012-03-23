@@ -30,7 +30,10 @@
             Email
         </th>
         <th>
-            Password
+            Validado
+        </th>
+        <th>
+            IsAdmin
         </th>
         <th></th>
     </tr>
@@ -56,7 +59,10 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @Html.DisplayFor(modelItem => item.Validado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAdmin)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

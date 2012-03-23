@@ -40,9 +40,14 @@
         @Html.DisplayFor(model => model.Email)
     </div>
 
-    <div class="display-label">Password</div>
+    <div class="display-label">Validado</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Password)
+        @Html.DisplayFor(model => model.Validado)
+    </div>
+
+    <div class="display-label">IsAdmin</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsAdmin)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

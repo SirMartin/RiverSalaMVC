@@ -6,7 +6,7 @@
             @item.Titulo</h2>
     </div>
     <div class="noticia">
-        <img alt="Noticia" class="noborder" src="/Content/images/style/escudo.gif" title="escudo" />
+        <img alt="Noticia" class="noborder" src="Content/images/style/escudo.gif" title="escudo" />
         @Html.Raw(item.Contenido)</div>
     <p class="post">
         @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @item.IdNoticia }, new { @class = "readmore" })

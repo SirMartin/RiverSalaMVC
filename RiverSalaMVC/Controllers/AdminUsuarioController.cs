@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using RiverSalaMVC;
 
 namespace RiverSalaMVC.Controllers
-{
+{ 
     public class AdminUsuarioController : BaseController
     {
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
@@ -27,30 +27,6 @@ namespace RiverSalaMVC.Controllers
         public ViewResult Details(int id)
         {
             Usuario usuario = db.Usuario.Single(u => u.ID == id);
-            return View(usuario);
-        }
-
-        //
-        // GET: /AdminUsuario/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
-        // POST: /AdminUsuario/Create
-
-        [HttpPost]
-        public ActionResult Create(Usuario usuario)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Usuario.AddObject(usuario);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
-
             return View(usuario);
         }
         
