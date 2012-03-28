@@ -232,9 +232,6 @@
     <Content Include="Views\Noticia\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Noticia\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Noticia\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
