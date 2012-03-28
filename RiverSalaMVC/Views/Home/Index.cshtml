@@ -19,7 +19,7 @@
             @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments" })
         }
         <span class="date">Publicada el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
-            @Html.ActionLink(item.Autor, "Details", "Usuario", null, null)</span>
+            @Html.ActionLink(item.Autor, "Details", "Usuario", new { id = item.IdAutor}, null)</span>
     </p>
 }
 <br />

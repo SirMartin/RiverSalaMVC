@@ -46,6 +46,21 @@ namespace RiverSalaMVC.Controllers
             List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
             ViewBag.Comentarios = comentarios;
 
+            //Cogemos los usuarios con su número de posteos.
+            List<Usuario> userPosts = db.Usuario.Include("Comentario").ToList();
+            List<PosteosModel> posteos = new List<PosteosModel>();
+            foreach (Usuario user in userPosts)
+            {
+                PosteosModel post = new PosteosModel()
+                {
+                    IdUsuario = user.ID,
+                    TotalPosts = user.Comentario.Count
+                };
+                posteos.Add(post);
+            }
+            //Lo metemos en un ViewBag.
+            ViewBag.Posteos = posteos;
+
             return View(notMod);
         }
 

@@ -20,12 +20,12 @@ namespace RiverSalaMVC.Controllers
             if (Request.IsAuthenticated)
             {
                 //Vemos todas.
-                noticiasDB = db.Noticia.Include("Usuario").OrderBy(g => g.Fecha).ToArray();
+                noticiasDB = db.Noticia.Include("Usuario").OrderByDescending(g => g.Fecha).ToArray();
             }
             else
             {
                 //Solo las NO privadas.
-                noticiasDB = db.Noticia.Include("Usuario").Where(g => g.EsPrivada == false).OrderBy(g => g.Fecha).ToArray();
+                noticiasDB = db.Noticia.Include("Usuario").Where(g => g.EsPrivada == false).OrderByDescending(g => g.Fecha).ToArray();
             }
 
             int counter = 0;

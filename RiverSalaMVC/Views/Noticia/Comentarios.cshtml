@@ -5,7 +5,6 @@
 <!-- Aqui el SCRIPT de Javascript que escribe en el textarea -->
 <script type="text/javascript">
     function poner_texto(texto) {
-        alert("HOLA");
         var txt = $("#contenido").val();
         txt = txt + texto;
         $("#contenido").val(txt);
@@ -38,12 +37,13 @@
 <br>
 @foreach (RiverSalaMVC.Comentario item in ViewBag.Comentarios)
 {
+    String posts = ((List<RiverSalaMVC.Models.PosteosModel>)(ViewBag.posteos)).Where(g => g.IdUsuario == item.IdUsuario).FirstOrDefault().TotalPosts.ToString();
+    String foto = "../../Content/fotos/" + item.IdUsuario + ".jpg";
     <div class="noticia">
-        <img alt="Noticia" class="noborder" width="60" height="75" src="fotos/@item.IdUsuario"
-            title="" />
+        <img title="@item.Usuario.Nombre" alt="@item.Usuario.Nombre" class="noborder" width="60" height="75" src="@foto" />
         @Html.Raw(item.Texto)</div>
     <p class="post">
-        <a class="readmore">posteos</a> <span class="date">Comentado el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm")
+        <a class="readmore">@posts posts</a> <span class="date">Comentado el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm")
             por @Html.ActionLink(item.Usuario.Nombre, "Details", "Usuario", new { id = item.IdUsuario }, null)</span>
     </p>
     <br />
