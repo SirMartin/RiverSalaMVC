@@ -43,6 +43,9 @@ namespace RiverSalaMVC.Controllers
                 }
             }
 
+            //Convertimos el contenido a HTML.
+            noticias.ForEach(g => g.Contenido = Utils.Utils.TranslateBBCodeToHtml(g.Contenido, HttpContext));
+
             List<NoticiaModel> news = Utils.Utils.ConvertNoticiaToNoticiaModel(noticias);
 
             //Mandamos en un ViewBag la paginacion hecha, para el enlace.

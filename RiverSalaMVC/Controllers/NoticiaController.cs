@@ -24,20 +24,69 @@ namespace RiverSalaMVC.Controllers
             return View(noticia.ToList());
         }
 
-        //
-        // GET: /Noticia/Details/5
-
-        public ViewResult Details(int id)
-        {
-            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
-            return View(noticia);
-        }
-
+        #region Comentarios
         //
         // GET: /Noticia/Comentarios/5
 
-        public ViewResult Comentarios(int id)
+        public ActionResult Comentarios(int id)
         {
+            //Recuperamos la noticia.
+            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
+
+            //Si es privada y no estamos logueados no se puede ver.
+            if ((!Request.IsAuthenticated) && (noticia.EsPrivada))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //Convertimos el contenido de la noticia a HTML.
+            noticia.Contenido = Utils.Utils.TranslateBBCodeToHtml(noticia.Contenido, HttpContext);
+
+            //La convertimos al modelo para mostrar.
+            NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
+
+            //Recuperamos los comentarios de la noticia y los pasamos en un ViewBag.
+            List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
+
+            //Convertimos el contenido de los comentarios a HTML.
+            comentarios.ForEach(g => g.Texto = Utils.Utils.TranslateBBCodeToHtml(g.Texto, HttpContext));
+
+            //Los pasamos en un ViewBag.
+            ViewBag.Comentarios = comentarios;
+
+            //Cogemos los usuarios con su número de posteos.
+            List<Usuario> userPosts = db.Usuario.Include("Comentario").ToList();
+            List<PosteosModel> posteos = new List<PosteosModel>();
+            foreach (Usuario user in userPosts)
+            {
+                PosteosModel post = new PosteosModel()
+                {
+                    IdUsuario = user.ID,
+                    TotalPosts = user.Comentario.Count
+                };
+                posteos.Add(post);
+            }
+            //Lo metemos en un ViewBag.
+            ViewBag.Posteos = posteos;
+
+            return View(notMod);
+        }
+
+        [HttpPost]
+        [AuthorizationAttributes.UserAuthorize]
+        public ActionResult Comentarios(int id, FormCollection collection)
+        {
+            //Insertamos el comentario.
+            Comentario comentario = new Comentario();
+            comentario.Texto = collection["contenido"].ToString().Replace("\r\n", "<br/>");
+            comentario.IdUsuario = UsuarioLogueado.ID;
+            comentario.Fecha = DateTime.Now;
+            comentario.IdNoticia = id;
+
+            //Guardamos el comentario.
+            db.Comentario.AddObject(comentario);
+            db.SaveChanges();
+
             //Recuperamos la noticia.
             Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
             NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
@@ -64,31 +113,7 @@ namespace RiverSalaMVC.Controllers
             return View(notMod);
         }
 
-        [HttpPost]
-        [AuthorizationAttributes.UserAuthorize]
-        public ViewResult Comentarios(int id, FormCollection collection)
-        {
-            //Insertamos el comentario.
-            Comentario comentario = new Comentario();
-            comentario.Texto = collection["contenido"].ToString();
-            comentario.IdUsuario = 1;
-            comentario.Fecha = DateTime.Now;
-            comentario.IdNoticia = id;
-
-            //Guardamos el comentario.
-            db.Comentario.AddObject(comentario);
-            db.SaveChanges();
-
-            //Recuperamos la noticia.
-            Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
-            NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
-
-            //Recuperamos los comentarios de la noticia y los pasamos en un ViewBag.
-            List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
-            ViewBag.Comentarios = comentarios;
-
-            return View(notMod);
-        }
+        #endregion
 
         //
         // GET: /Noticia/Create
@@ -96,7 +121,7 @@ namespace RiverSalaMVC.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Noticia/Create
@@ -105,22 +130,24 @@ namespace RiverSalaMVC.Controllers
         public ActionResult Create(Noticia noticia)
         {
             //Ponemos los datos que faltan.
-            noticia.IdUsuario = 1;
+            noticia.IdUsuario = UsuarioLogueado.ID;
             noticia.Fecha = DateTime.Now;
 
             if (ModelState.IsValid)
             {
                 db.Noticia.AddObject(noticia);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(noticia);
         }
-        
+
+        #region Editar
+
         //
         // GET: /Noticia/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
@@ -136,18 +163,22 @@ namespace RiverSalaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Noticia.Attach(noticia);
-                db.ObjectStateManager.ChangeObjectState(noticia, EntityState.Modified);
+                Noticia not = db.Noticia.Where(g => g.ID == noticia.ID).FirstOrDefault();
+                not.Contenido = noticia.Contenido.Replace("\r\n", "<br/>");
+                not.Titulo = noticia.Titulo;
+                not.EsPrivada = noticia.EsPrivada;
+                //Continuamos con la modificación.
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Comentarios", new { id = noticia.ID });
             }
-            ViewBag.IdUsuario = new SelectList(db.Usuario, "ID", "Nombre", noticia.IdUsuario);
             return View(noticia);
         }
 
+        #endregion
+
         //
         // GET: /Noticia/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
@@ -159,7 +190,7 @@ namespace RiverSalaMVC.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
             db.Noticia.DeleteObject(noticia);
             db.SaveChanges();
