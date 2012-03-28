@@ -15,7 +15,18 @@ namespace RiverSalaMVC.Controllers
         //[OutputCache(Duration=20000)]
         public ActionResult Index(int? page)
         {
-            Noticia[] noticiasDB = db.Noticia.Include("Usuario").OrderBy(g => g.Fecha).ToArray();
+            //Cogemos todas las noticias si estamos autenticados o solo las publicas si no lo estamos.
+            Noticia[] noticiasDB;
+            if (Request.IsAuthenticated)
+            {
+                //Vemos todas.
+                noticiasDB = db.Noticia.Include("Usuario").OrderBy(g => g.Fecha).ToArray();
+            }
+            else
+            {
+                //Solo las NO privadas.
+                noticiasDB = db.Noticia.Include("Usuario").Where(g => g.EsPrivada == false).OrderBy(g => g.Fecha).ToArray();
+            }
 
             int counter = 0;
             if (page != null)

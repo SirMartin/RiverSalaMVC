@@ -29,7 +29,7 @@
         @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @Model.IdNoticia }, new { @class = "comments" })
     }
     <span class="date">Publicada el @Model.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
-        @Html.ActionLink(Model.Autor, "Details", "Usuario", new {id = Model.IdAutor}, null)</span>
+        @Html.ActionLink(Model.Autor, "Details", "Usuario", new { id = Model.IdAutor }, null)</span>
 </p>
 <div align="center">
     <h2>
@@ -39,7 +39,7 @@
 @foreach (RiverSalaMVC.Comentario item in ViewBag.Comentarios)
 {
     <div class="noticia">
-        <img alt="Noticia" class="noborder" width="60" height="75" src="fotos/<?php echo $imagenautor;?>"
+        <img alt="Noticia" class="noborder" width="60" height="75" src="fotos/@item.IdUsuario"
             title="" />
         @Html.Raw(item.Texto)</div>
     <p class="post">
@@ -51,8 +51,10 @@
     <br />
 }
 <!-- SECCION PARA ESCRIBIR UN COMENTARIO NUEVO -->
-@using (Html.BeginForm())
+@if (Request.IsAuthenticated)
 {
+    using (Html.BeginForm())
+    {
     <div align="center">
         <p align="left">
             Introduce tu comentario:
@@ -96,4 +98,5 @@
         <br />
         <input type="submit" value="Enviar Comentario" name="enviar">
     </div>
+    }
 }
