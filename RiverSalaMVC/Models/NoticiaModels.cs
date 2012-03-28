@@ -32,4 +32,13 @@ namespace RiverSalaMVC.Models
         [Display(Name = "Fecha")]
         public DateTime Fecha { get; set; }
     }
+
+    public class PosteosModel
+    {
+        [Display(Name = "IdUsuario")]
+        public int IdUsuario { get; set; }
+
+        [Display(Name = "TotalPosts")]
+        public int TotalPosts { get; set; }
+    }
 }
