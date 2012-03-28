@@ -97,13 +97,13 @@ namespace RiverSalaMVC.Utils
             contenido = contenido.Replace(":banana2:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/platano2.gif", httpContext) + "'/>");
             contenido = contenido.Replace(":bailon:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta1.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":gato:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta2.gif", httpContext) + " width='30%' />");
+            contenido = contenido.Replace(":gato:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta2.gif", httpContext) + "' width='30%' />");
             contenido = contenido.Replace(":ostia:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta3.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":panda:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta4.gif", httpContext) + " width='50%'/>");
-            contenido = contenido.Replace(":stewie:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/stewie.gif", httpContext) + " width='25%'/>");
+            contenido = contenido.Replace(":panda:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta4.gif", httpContext) + "' width='50%'/>");
+            contenido = contenido.Replace(":stewie:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/stewie.gif", httpContext) + "' width='25%'/>");
 
-            contenido = contenido.Replace(":river:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/river.gif", httpContext) + " width='52'/>");
+            contenido = contenido.Replace(":river:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/river.gif", httpContext) + "' width='52'/>");
             contenido = contenido.Replace(":kitt:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/kitt.gif", httpContext) + "'/>");
 
             //Devolvemos el contenido cambiado.
