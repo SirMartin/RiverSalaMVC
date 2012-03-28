@@ -9,7 +9,10 @@
         <img alt="Noticia" class="noborder" src="Content/images/style/escudo.gif" title="escudo" />
         @Html.Raw(item.Contenido)</div>
     <p class="post">
-        @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @item.IdNoticia }, new { @class = "readmore" })
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @item.IdNoticia }, new { @class = "readmore" })
+        }
         @if (item.Comentarios > 0)
         {
             @Html.ActionLink("Hay " + item.Comentarios + " comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments" })
@@ -19,7 +22,7 @@
             @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments" })
         }
         <span class="date">Publicada el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
-            @Html.ActionLink(item.Autor, "Details", "Usuario", new { id = item.IdAutor}, null)</span>
+            @Html.ActionLink(item.Autor, "Details", "Usuario", new { id = item.IdAutor }, null)</span>
     </p>
 }
 <br />
@@ -32,7 +35,7 @@
     @if ((ViewBag.PagePrev != -1) && (ViewBag.PageNext != -1))
     {
         @:&nbsp;|&nbsp;
-            }
+                }
     @if (ViewBag.PageNext != -1)
     {
         @Html.ActionLink("Siguientes", "Index", new { page = ViewBag.PageNext })

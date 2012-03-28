@@ -15,24 +15,23 @@
         @Model.Titulo</h2>
 </div>
 <div class="noticia">
-    <img alt="Noticia" class="noborder" src="Content/images/style/escudo.gif" title="escudo" />
+    <img alt="Noticia" class="noborder" src="@Url.Content("/Content/images/style/escudo.gif")" title="escudo" />
     @Html.Raw(Model.Contenido)</div>
 <p class="post">
     @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @Model.IdNoticia }, new { @class = "readmore" })
-    @if (Model.Comentarios > 0)
-    {
-        @Html.ActionLink("Hay " + Model.Comentarios + " comentarios", "Comentarios", "Noticia", new { id = @Model.IdNoticia }, new { @class = "comments" })
-    }
-    else
-    {
-        @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @Model.IdNoticia }, new { @class = "comments" })
-    }
     <span class="date">Publicada el @Model.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
         @Html.ActionLink(Model.Autor, "Details", "Usuario", new { id = Model.IdAutor }, null)</span>
 </p>
 <div align="center">
     <h2>
-        <u>COMENTARIOS</u></h2>
+        <u>@if (Model.Comentarios > 0)
+    {
+        @:@Model.Comentarios COMENTARIOS
+    }
+    else
+    {
+         @:NO HAY COMENTARIOS, SE EL PRIMERO!
+    }</u></h2>
 </div>
 <br>
 @foreach (RiverSalaMVC.Comentario item in ViewBag.Comentarios)
@@ -59,39 +58,38 @@
         <p align="left">
             Introduce tu comentario:
         </p>
-        <table style="border-style: outset" border="4" cellpadding="0" cellspacing="0" style="border-collapse: collapse"
-            bgcolor="#DDDDDD" bordercolor="#CCCCCC" width="400" height="140">
+        <table style="border-style: outset; border: 4px outset #CCC;border-collapse: collapse; background-color:#DDD;width:400px;height:140px;" cellpadding="0" cellspacing="0">
             <tr>
                 <td width="400" height="140">
-                    <textarea name="contenido" cols="48" rows="9" bgcolor="#DDDDDD" id="contenido"></textarea>
+                    <textarea style="background-color:#DDD;" name="contenido" cols="48" rows="9" id="contenido"></textarea>
                 </td>
             </tr>
             <tr>
                 <td width="400">
                     <p align="center">
                         EMOTICONOS (Pulsa sobre ellos para añadirlos al comentario)</p>
-                    <img src="/Content/images/emoticons/1.gif" onclick="poner_texto(':arg')" />
-                    <img src="/Content/images/emoticons/2.gif" onclick="poner_texto(':)')" />
-                    <img src="/Content/images/emoticons/3.gif" onclick="poner_texto(':(')" />
-                    <img src="/Content/images/emoticons/4.gif" onclick="poner_texto(':D')" />
-                    <img src="/Content/images/emoticons/5.gif" onclick="poner_texto(':ninja:')" />
-                    <img src="/Content/images/emoticons/6.gif" onclick="poner_texto(':ataque:')" />
-                    <img src="/Content/images/emoticons/7.gif" onclick="poner_texto('xD')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/1.gif")" onclick="poner_texto(':arg')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/2.gif")" onclick="poner_texto(':)')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/3.gif")" onclick="poner_texto(':(')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/4.gif")" onclick="poner_texto(':D')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/5.gif")" onclick="poner_texto(':ninja:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/6.gif")" onclick="poner_texto(':ataque:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/7.gif")" onclick="poner_texto('xD')" />
                     <br />
-                    <img src="/Content/images/emoticons/8.gif" onclick="poner_texto(':9:')" />
-                    <img src="/Content/images/emoticons/9.gif" onclick="poner_texto(':heavy:')" />
-                    <img src="/Content/images/emoticons/platano1.gif" onclick="poner_texto(':banana:')" />
-                    <img src="/Content/images/emoticons/platano2.gif" onclick="poner_texto(':banana2:')" />
-                    <img src="/Content/images/emoticons/sparta1.gif" onclick="poner_texto(':bailon:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/8.gif")" onclick="poner_texto(':9:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/9.gif")" onclick="poner_texto(':heavy:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/platano1.gif")" onclick="poner_texto(':banana:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/platano2.gif")" onclick="poner_texto(':banana2:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/sparta1.gif")" onclick="poner_texto(':bailon:')" />
                     <br />
-                    <img src="/Content/images/emoticons/sparta2.gif" width="30%" onclick="poner_texto(':gato:')" />
-                    <img src="/Content/images/emoticons/sparta3.gif" onclick="poner_texto(':ostia:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/sparta2.gif")" width="30%" onclick="poner_texto(':gato:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/sparta3.gif")" onclick="poner_texto(':ostia:')" />
                     <br />
-                    <img src="/Content/images/emoticons/sparta4.gif" width="50%" onclick="poner_texto(':panda:')" />
-                    <img src="/Content/images/emoticons/stewie.gif" width="25%" onclick="poner_texto(':stewie:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/sparta4.gif")" width="50%" onclick="poner_texto(':panda:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/stewie.gif")" width="25%" onclick="poner_texto(':stewie:')" />
                     <br />
-                    <img src="/Content/images/emoticons/river.gif" width="52" onclick="poner_texto(':river:')" />
-                    <img src="/Content/images/emoticons/kitt.gif" onclick="poner_texto(':kitt:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/river.gif")" width="52" onclick="poner_texto(':river:')" />
+                    <img alt="" src="@Url.Content("/Content/images/emoticons/kitt.gif")" onclick="poner_texto(':kitt:')" />
                 </td>
             </tr>
         </table>
