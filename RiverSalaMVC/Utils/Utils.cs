@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using RiverSalaMVC.Models;
+using System.Web.Mvc;
 
 namespace RiverSalaMVC.Utils
 {
@@ -46,8 +47,9 @@ namespace RiverSalaMVC.Utils
         /// Convierte los códigos de BB métidos en las noticias en BBDD y demás, por HTML.
         /// </summary>
         /// <param name="contenido">El contenido con los códigos de imagenes y demás.</param>
+        /// <param name="httpContext">El contexto para que cree las rutas correctas.</param>
         /// <returns>El HTML convertido.</returns>
-        public static String TranslateBBCodeToHtml(String contenido)
+        public static String TranslateBBCodeToHtml(String contenido, HttpContextBase httpContext)
         {
             // Ponemos cada BBCode y su reemplazo
 
@@ -77,32 +79,32 @@ namespace RiverSalaMVC.Utils
 
             //EMOTICONS
 
-            contenido = contenido.Replace(":arg", "<img src='../img/emoticons/1.gif'/>");
-            contenido = contenido.Replace(":)", "<img src='../img/emoticons/2.gif'/>");
+            contenido = contenido.Replace(":arg", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/1.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":)", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/2.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":(", "<img src='../img/emoticons/3.gif'/>");
-            contenido = contenido.Replace(":D", "<img src='../img/emoticons/4.gif'/>");
+            contenido = contenido.Replace(":(", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/3.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":D", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/4.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":ninja:", "<img src='../img/emoticons/5.gif'/>");
-            contenido = contenido.Replace(":ataque:", "<img src='../img/emoticons/6.gif'/>");
+            contenido = contenido.Replace(":ninja:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/5.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":ataque:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/6.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace("xD", "<img src='../img/emoticons/7.gif'/>");
-            contenido = contenido.Replace(":9:", "<img src='../img/emoticons/8.gif'/>");
+            contenido = contenido.Replace("xD", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/7.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":9:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/8.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":heavy:", "<img src='../img/emoticons/9.gif'/>");
-            contenido = contenido.Replace(":banana:", "<img src='../img/emoticons/platano1.gif'/>");
+            contenido = contenido.Replace(":heavy:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/9.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":banana:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/platano1.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":banana2:", "<img src='../img/emoticons/platano2.gif'/>");
-            contenido = contenido.Replace(":bailon:", "<img src='../img/emoticons/sparta1.gif'/>");
+            contenido = contenido.Replace(":banana2:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/platano2.gif", httpContext) + "'/>");
+            contenido = contenido.Replace(":bailon:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta1.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":gato:", "<img src='../img/emoticons/sparta2.gif' width='30%' />");
-            contenido = contenido.Replace(":ostia:", "<img src='../img/emoticons/sparta3.gif'/>");
+            contenido = contenido.Replace(":gato:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta2.gif", httpContext) + " width='30%' />");
+            contenido = contenido.Replace(":ostia:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta3.gif", httpContext) + "'/>");
 
-            contenido = contenido.Replace(":panda:", "<img src='../img/emoticons/sparta4.gif'  width='50%'/>");
-            contenido = contenido.Replace(":stewie:", "<img src='../img/emoticons/stewie.gif' width='25%'/>");
+            contenido = contenido.Replace(":panda:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/sparta4.gif", httpContext) + " width='50%'/>");
+            contenido = contenido.Replace(":stewie:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/stewie.gif", httpContext) + " width='25%'/>");
 
-            contenido = contenido.Replace(":river:", "<img src='../img/emoticons/river.gif'  width='52'/>");
-            contenido = contenido.Replace(":kitt:", "<img src='../img/emoticons/kitt.gif'/>");
+            contenido = contenido.Replace(":river:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/river.gif", httpContext) + " width='52'/>");
+            contenido = contenido.Replace(":kitt:", "<img src='" + UrlHelper.GenerateContentUrl("/Content/images/emoticons/kitt.gif", httpContext) + "'/>");
 
             //Devolvemos el contenido cambiado.
             return contenido;
