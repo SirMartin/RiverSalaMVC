@@ -33,7 +33,8 @@ namespace RiverSalaMVC.Controllers
             {
                 if (RiverSalaMembership.ValidateUser(model.Email, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                    Usuario user = RiverSalaMembership.GetUserByEmail(model.Email);
+                    RiverSalaMembership.LogInUser(model.Email, user.Nombre, user.IsAdmin, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -93,7 +94,8 @@ namespace RiverSalaMVC.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, false /* createPersistentCookie */);
+                    Usuario user = RiverSalaMembership.GetUserByEmail(model.Email);
+                    RiverSalaMembership.LogInUser(model.Email, user.Nombre, user.IsAdmin, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else

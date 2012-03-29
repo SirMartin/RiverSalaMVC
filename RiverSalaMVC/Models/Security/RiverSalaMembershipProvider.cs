@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace RiverSalaMVC.Models.Security
 {
@@ -53,8 +54,8 @@ namespace RiverSalaMVC.Models.Security
 
             //Comprobamos que el email este libre.
             var existEmail = (from u in db.Usuario
-                        where u.Email == email
-                        select u).FirstOrDefault();
+                              where u.Email == email
+                              select u).FirstOrDefault();
 
             if ((existEmail != null))
             {
@@ -125,6 +126,16 @@ namespace RiverSalaMVC.Models.Security
         public override System.Web.Security.MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
             throw new NotImplementedException();
+        }
+
+        public RiverSalaMVC.Usuario GetUserByEmail(String email)
+        {
+            DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
+            RiverSalaMVC.Usuario user = (from u in db.Usuario
+                                         where u.Email == email
+                                         select u).FirstOrDefault();
+
+            return user;
         }
 
         /// <summary>
@@ -221,6 +232,21 @@ namespace RiverSalaMVC.Models.Security
                         select u).FirstOrDefault();
 
             return (user != null);
+        }
+
+        /// <summary>
+        /// Logueamos el usuario para RiverSala.
+        /// </summary>
+        /// <param name="email">El email del usuario.</param>
+        /// <param name="nombre">El nombre del usuario.</param>
+        /// <param name="isAdmin">Si es administrador o no.</param>
+        /// <param name="createPersistentCookie">Si creamos la cookie que permanezca o no.</param>
+        public void LogInUser(String email, String nombre, bool isAdmin, bool createPersistentCookie)
+        {
+            //Creamos la identidad.
+            String identity = email + Utils.Constantes.IdentitySeparator + nombre + Utils.Constantes.IdentitySeparator + isAdmin.ToString();
+            //Logueamos con la cookie.
+            FormsAuthentication.SetAuthCookie(identity, createPersistentCookie);
         }
     }
 }

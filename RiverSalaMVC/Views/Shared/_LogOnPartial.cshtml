@@ -1,24 +1,30 @@
-﻿<h3>
+﻿@{bool isAdmin = false;}
 @if (Request.IsAuthenticated)
 {
+    String[] arrayIdentity = User.Identity.Name.Split(RiverSalaMVC.Utils.Constantes.IdentitySeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+    string email = arrayIdentity[0];
+    string username = arrayIdentity[1];
+    isAdmin = Convert.ToBoolean(arrayIdentity[2]);
     <h3>
-        Hola @User.Identity.Name</h3>
+        Hola @username!</h3>
 }
 else
 {
-    @: @Html.ActionLink("Registrate", "Register", "Account")  o @Html.ActionLink("Logueate", "LogOn", "Account")
+    @:<h3>@Html.ActionLink("Registrate", "Register", "Account") o @Html.ActionLink("Logueate", "LogOn", "Account")</h3>
 }
-</h3>
 <div class="navlist">
     <ul>
         <li><a href="index.php?pag=archivo.php">Archivo de Noticias</a></li>
         <li>@Html.ActionLink("Enlaces de Interes", "Index", "Links", null, null)</li>
         @if (Request.IsAuthenticated)
         {
-        
             <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
             <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
             <li>@Html.ActionLink("Salir", "LogOff", "Account")</li>
+            if (isAdmin)
+            {
+            <li>@Html.ActionLink("Administración", "Index", "Admin")</li>
+            }
         }
     </ul>
 </div>
