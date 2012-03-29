@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="clubmenu" align="center">
+    <h3>
+        @Html.ActionLink("Estatutos", "Estatutos") | @Html.ActionLink("Ficha Técnica", "Index")
+        | @Html.ActionLink("Jugadores", "Jugadores") | @Html.ActionLink("Plantillas", "Plantillas")
+    </h3>
+</div>
+<div>
+    <img width="99%" src="@Url.Content("/Content/images/sections/organigrama.png")" alt="Organigrama del club" title="Organigrama del club" />
+</div>
