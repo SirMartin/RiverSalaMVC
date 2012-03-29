@@ -6,23 +6,32 @@
             @item.Titulo</h2>
     </div>
     <div class="noticia">
-        <img alt="Noticia" class="noborder" src="Content/images/style/escudo.gif" title="escudo" />
-        @Html.Raw(item.Contenido)</div>
+        <table style="width:99%;">
+            <tr>
+                <td style="width:12%;vertical-align:top;border-right: 1px dashed #000;">
+                    <img alt="@item.Titulo" class="noborder" src="@Url.Content("Content/images/style/escudo.gif")" title="@item.Titulo" />
+                </td>
+                <td style="padding:0px 5px 0px 5px;">
+                    @Html.Raw(item.Contenido)
+                </td>
+            </tr>
+        </table>
+    </div>
     <p class="post">
         @if (Request.IsAuthenticated)
         {
-            @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @item.IdNoticia }, new { @class = "readmore" })
+            @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @item.IdNoticia }, new { @class = "readmore", title = "Edita la noticia."})
         }
         @if (item.Comentarios > 0)
         {
-            @Html.ActionLink("Hay " + item.Comentarios + " comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments" })
+            @Html.ActionLink("Hay " + item.Comentarios + " comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments", title="Realiza tu comentario." })
         }
         else
         {
-            @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments" })
+            @Html.ActionLink("No hay comentarios", "Comentarios", "Noticia", new { id = @item.IdNoticia }, new { @class = "comments", title = "Realiza tu comentario." })
         }
         <span class="date">Publicada el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
-            @Html.ActionLink(item.Autor, "Details", "Usuario", new { id = item.IdAutor }, null)</span>
+            @Html.ActionLink(item.Autor, "Details", "Usuario", new { id = item.IdAutor }, new { title = "Visita el perfil de " + item.Autor })</span>
     </p>
 }
 <br />
@@ -35,7 +44,7 @@
     @if ((ViewBag.PagePrev != -1) && (ViewBag.PageNext != -1))
     {
         @:&nbsp;|&nbsp;
-                }
+                                    }
     @if (ViewBag.PageNext != -1)
     {
         @Html.ActionLink("Siguientes", "Index", new { page = ViewBag.PageNext })

@@ -15,14 +15,17 @@ namespace RiverSalaMVC.Controllers
     {
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
 
+        #region Index
         //
         // GET: /Noticia/
 
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            var noticia = db.Noticia.Include("Usuario");
-            return View(noticia.ToList());
+            //Vamos a la acción de HOME, que es la principal.
+            return RedirectToAction("Index", "Home");
         }
+
+        #endregion
 
         #region Comentarios
         //
@@ -115,6 +118,8 @@ namespace RiverSalaMVC.Controllers
 
         #endregion
 
+        #region Crear
+
         //
         // GET: /Noticia/Create
 
@@ -133,6 +138,9 @@ namespace RiverSalaMVC.Controllers
             noticia.IdUsuario = UsuarioLogueado.ID;
             noticia.Fecha = DateTime.Now;
 
+            //Ponemos los saltos de linea.
+            noticia.Contenido = noticia.Contenido.Replace("\r\n", "<br/>");
+
             if (ModelState.IsValid)
             {
                 db.Noticia.AddObject(noticia);
@@ -142,6 +150,8 @@ namespace RiverSalaMVC.Controllers
 
             return View(noticia);
         }
+        
+        #endregion
 
         #region Editar
 
@@ -151,6 +161,7 @@ namespace RiverSalaMVC.Controllers
         public ActionResult Edit(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
+            noticia.Contenido = noticia.Contenido.Replace("<br/>", "\r\n");
             ViewBag.IdUsuario = new SelectList(db.Usuario, "ID", "Nombre", noticia.IdUsuario);
             return View(noticia);
         }
@@ -175,6 +186,8 @@ namespace RiverSalaMVC.Controllers
         }
 
         #endregion
+
+        #region Eliminar
 
         //
         // GET: /Noticia/Delete/5
@@ -202,5 +215,7 @@ namespace RiverSalaMVC.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }

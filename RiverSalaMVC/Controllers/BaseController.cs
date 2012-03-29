@@ -78,7 +78,9 @@ namespace RiverSalaMVC.Controllers
                     //ojo, no dejarlo como variable estática ya que es compartida por TODOS los usuarios de la aplicación.
                     //el session tampoco sirve por qeu actua a modo de cache y cambios realizados en el estado del usuario por otras aplicaciones no lo actualizan
 
-                    string username = HttpContext.User.Identity.Name;
+                    string identity = HttpContext.User.Identity.Name;
+                    String[] arrayIdentity = HttpContext.User.Identity.Name.Split(RiverSalaMVC.Utils.Constantes.IdentitySeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    String username = arrayIdentity[0];
                     if (HttpContext != null)
                     {
                         string ocKey = "usr_" + HttpContext.GetHashCode().ToString("x");
