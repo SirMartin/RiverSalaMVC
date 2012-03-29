@@ -78,9 +78,5 @@ namespace RiverSalaMVC.Controllers
             return View(news);
         }
 
-        public ActionResult About()
-        {
-            return View();
-        }
     }
 }
