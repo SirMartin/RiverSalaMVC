@@ -110,4 +110,15 @@ namespace RiverSalaMVC.Utils
             return contenido;
         }
     }
+
+    /// <summary>
+    /// Una clase con todas las constantes necesarias de forma global.
+    /// </summary>
+    public class Constantes
+    {
+        /// <summary>
+        /// Separador para las identitys de la aplicación.
+        /// </summary>
+        public const String IdentitySeparator = "-*/*/-";
+    }
 }
