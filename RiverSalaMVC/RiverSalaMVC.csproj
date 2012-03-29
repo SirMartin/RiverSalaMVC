@@ -85,7 +85,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUsuarioController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ComentarioController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\NoticiaController.cs" />
@@ -120,7 +120,8 @@
     <Content Include="Content\fotos\71.jpg" />
     <Content Include="Content\fotos\9.jpg" />
     <Content Include="Content\fotos\nadie.jpg" />
-    <Content Include="Content\images\elave.gif" />
+    <Content Include="Content\images\sections\elave.gif" />
+    <Content Include="Content\images\sections\elgolico.jpg" />
     <Content Include="Content\images\emoticons\1.gif" />
     <Content Include="Content\images\emoticons\2.gif" />
     <Content Include="Content\images\emoticons\3.gif" />
@@ -139,10 +140,14 @@
     <Content Include="Content\images\emoticons\sparta3.gif" />
     <Content Include="Content\images\emoticons\sparta4.gif" />
     <Content Include="Content\images\emoticons\stewie.gif" />
-    <Content Include="Content\images\piribi.jpg" />
+    <Content Include="Content\images\sections\escudo_estatuto.jpg" />
+    <Content Include="Content\images\sections\faf.jpg" />
+    <Content Include="Content\images\sections\laboral.jpg" />
+    <Content Include="Content\images\sections\piribi.jpg" />
+    <Content Include="Content\images\sections\organigrama.png" />
     <Content Include="Content\images\style\bg.jpg" />
     <Content Include="Content\images\style\escudo.gif" />
-    <Content Include="Content\images\tramigest.gif" />
+    <Content Include="Content\images\sections\tramigest.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\images\style\banner.jpg" />
     <Content Include="Content\images\style\clock.gif" />
@@ -209,7 +214,6 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
@@ -229,9 +233,6 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Noticia\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Noticia\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -241,21 +242,6 @@
     <Content Include="Views\Noticia\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Comentario\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Comentario\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Comentario\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Comentario\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Comentario\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Noticia\Comentarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Usuario\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Usuario\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Links\Index.cshtml" />
@@ -279,7 +262,21 @@
   <ItemGroup>
     <Content Include="Views\AdminUsuario\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Club\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Club\Organigrama.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Club\Plantillas.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Club\Jugadores.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Club\Estatutos.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
