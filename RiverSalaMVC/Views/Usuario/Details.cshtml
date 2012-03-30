@@ -1,45 +1,35 @@
 ﻿@model RiverSalaMVC.Usuario
-
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<fieldset>
-    <legend>Usuario</legend>
-
-    <div class="display-label">Nombre</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Nombre)
-    </div>
-
-    <div class="display-label">Apellidos</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Apellidos)
-    </div>
-
-    <div class="display-label">EsJugador</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EsJugador)
-    </div>
-
-    <div class="display-label">Posicion</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Posicion)
-    </div>
-
-    <div class="display-label">Activo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Activo)
-    </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h2>
+    Ficha de @Model.Nombre</h2>
+<br />
+@{ String foto = "/Content/fotos/" + Model.ID + ".jpg"; }
+@{ String numero = "/Content/images/numeros/" + Model.Numero + ".gif"; }
+@{ String textoJugador = Model.EsJugador ? "Jugador - " + Model.Posicion : Model.Posicion; }
+<table border="1" cellpadding="0" cellspacing="0" style="width: 500px; height: 75px;
+    border: 1px solid #000; border-collapse: collapse;">
+    <tr>
+        <td width="60" height="75" align="center" rowspan="2">
+            <img class="noborder" width="60" height="75" alt="@Model.Nombre @Model.Apellidos" title="@Model.Nombre @Model.Apellidos" src="@Url.Content(foto)" />
+        </td>
+        <td height="35">
+            <p align="left">
+                &nbsp;@Model.Nombre @Model.Apellidos</p>
+        </td>
+        @if (Model.EsJugador)
+        {
+            <td width="50" height="75" rowspan="2" align="center">
+                <img title="@Model.Posicion - @Model.Numero" alt="@Model.Posicion - @Model.Numero" width="80" height="80" src="@Url.Content(numero)">
+            </td>
+        }
+    </tr>
+    <tr>
+        <td height="35">
+            <p align="left">
+                &nbsp;@textoJugador
+            </p>
+        </td>
+    </tr>
+</table>
