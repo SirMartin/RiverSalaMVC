@@ -233,5 +233,16 @@ namespace RiverSalaMVC.Controllers
         }
 
         #endregion
+
+        #region Administración
+
+        [AuthorizationAttributes.AdminAuthorize]
+        public ActionResult Administracion()
+        {
+            //Vamos a la acción de HOME, que es la principal.
+            return RedirectToAction("Index", "Home");
+        }
+
+        #endregion
     }
 }

@@ -39,7 +39,7 @@
     String posts = ((List<RiverSalaMVC.Models.PosteosModel>)(ViewBag.posteos)).Where(g => g.IdUsuario == item.IdUsuario).FirstOrDefault().TotalPosts.ToString();
     String foto = "/Content/fotos/" + item.IdUsuario + ".jpg";
     <div class="noticia">
-        <img title="@item.Usuario.Nombre" alt="@item.Usuario.Nombre" class="noborder" width="60" height="75" src="@Url.Content(foto)" />
+        <img title="@item.Usuario.Nombre" alt="@item.Usuario.Nombre" class="noborder" width="68" height="90" src="@Url.Content(foto)" />
         @Html.Raw(item.Texto)</div>
     <p class="post">
         <a class="readmore">@posts posts</a> <span class="date">Comentado el @item.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm")
