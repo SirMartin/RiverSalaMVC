@@ -4,50 +4,52 @@
     ViewBag.Title = "Index";
 }
 
-<table>
-    <tr>
-        <th>
-            Nombre
-        </th>
-        <th>
-            Apellidos
-        </th>
-        <th>
-            EsJugador
-        </th>
-        <th>
-            Posicion
-        </th>
-        <th>
-            Activo
-        </th>
-        <th>
-            Email
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellidos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EsJugador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Posicion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Activo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-    </tr>
-}
-
+<table border="4" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="70%">
+	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="70%">
+		<tr>
+			<td width="100%" colspan="2" align="center"><h2><u>JUGADORES</u></h2></td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="70%">
+	@{int i = 0;}
+	@foreach (var item in Model.Where(g => g.Activo == true && g.EsJugador == true).OrderBy(g => g.Numero).ToList())
+ {
+     String foto = "/Content/fotos/" + item.ID + ".jpg";
+     i++;
+     if (i % 2 == 1)
+     {
+		@:<tr>
+			@:<td width="50%" colspan="2" align="center"><a href="@Url.Action("Details", new { id = item.ID})"><img border="0" width="68" height="90" src="@Url.Content(foto)" /><br />@item.Numero - @item.Nombre @item.Apellidos<br />@item.Posicion</a></td>
+     }
+     else
+     {
+			@:<td width="50%" colspan="2" align="center"><a href="@Url.Action("Details", new { id = item.ID})"><img border="0" width="68" height="90" src="@Url.Content(foto)" /><br />@item.Numero - @item.Nombre @item.Apellidos<br />@item.Posicion</a></td>
+		@:</tr>
+     }
+ }
+	</table>
+    <br />
+	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="70%">
+		<tr>
+			<td width="100%" colspan="2" align="center"><h2><u>CUERPO TÉCNICO</u></h2></td>
+		</tr>
+	</table>
+    <br />
+	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="70%">
+    @{i = 0;}
+	@foreach (var item in Model.Where(g => g.Activo == true && g.EsJugador == false).ToList()) {
+	    String foto = "/Content/fotos/" + item.ID + ".jpg";	
+        i++;
+        if (i % 2 == 1)
+        {
+		@:<tr>
+			@:<td width="50%" colspan="2" align="center"><a href="@Url.Action("Details", new { id = item.ID })"><img border="0" width="68" height="90" src="@Url.Content(foto)" /><br />@item.Nombre @item.Apellidos<br/>@item.Posicion</a></td>
+		}
+        else
+        {
+			@:<td width="50%" colspan="2" align="center"><a href="@Url.Action("Details", new { id = item.ID })"><img border="0" width="68" height="90" src="@Url.Content(foto)" /><br />@item.Nombre @item.Apellidos</a></td>
+		@:</tr>
+        }
+		 } 
+	</table>
 </table>

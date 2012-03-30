@@ -47,27 +47,22 @@
             @Html.DisplayFor(modelItem => item.Apellidos)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EsJugador)
+            @Html.Partial("BoolRender", item.EsJugador)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Posicion)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Activo)
+            @Html.Partial("BoolRender", item.Activo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Validado)
+            @Html.Partial("BoolRender", item.Validado)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAdmin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.Partial("BoolRender", item.IsAdmin)
         </td>
     </tr>
 }
