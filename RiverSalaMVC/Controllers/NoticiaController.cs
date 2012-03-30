@@ -123,6 +123,7 @@ namespace RiverSalaMVC.Controllers
         //
         // GET: /Noticia/Create
 
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Create()
         {
             return View();
@@ -132,6 +133,7 @@ namespace RiverSalaMVC.Controllers
         // POST: /Noticia/Create
 
         [HttpPost]
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Create(Noticia noticia)
         {
             //Ponemos los datos que faltan.
@@ -158,6 +160,7 @@ namespace RiverSalaMVC.Controllers
         //
         // GET: /Noticia/Edit/5
 
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Edit(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
@@ -170,6 +173,7 @@ namespace RiverSalaMVC.Controllers
         // POST: /Noticia/Edit/5
 
         [HttpPost]
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Edit(Noticia noticia)
         {
             if (ModelState.IsValid)
@@ -192,6 +196,7 @@ namespace RiverSalaMVC.Controllers
         //
         // GET: /Noticia/Delete/5
 
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Delete(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
@@ -202,6 +207,7 @@ namespace RiverSalaMVC.Controllers
         // POST: /Noticia/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [AuthorizationAttributes.AdminAuthorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Noticia noticia = db.Noticia.Single(n => n.ID == id);
@@ -214,6 +220,16 @@ namespace RiverSalaMVC.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        #endregion
+
+        #region Archivo
+
+        public ActionResult Historico()
+        {
+            //Vamos a la acción de HOME, que es la principal.
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion
