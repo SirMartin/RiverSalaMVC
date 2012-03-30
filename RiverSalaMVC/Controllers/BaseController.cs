@@ -19,7 +19,8 @@ namespace RiverSalaMVC.Controllers
             bool permisosOk = true;
 
             //Recogemos al usuario logueado.
-            string email = HttpContext.User.Identity.Name;
+            String[] arrayIdentity = HttpContext.User.Identity.Name.Split(RiverSalaMVC.Utils.Constantes.IdentitySeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string email = arrayIdentity[0];
             Usuario usuario = db.Usuario.Where(g => g.Email.Equals(email)).FirstOrDefault();
 
             //importante, hay que ir comparando entrando primero en los roles más poderosos            
