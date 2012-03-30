@@ -1,0 +1,10 @@
+﻿@model Boolean
+
+@if (Model)
+{
+    @:<img src="@Url.Content("/Content/images/admin/ok.png")" alt="" height="20px" width="20px"/>
+}
+else
+{
+    @:<img src="@Url.Content("/Content/images/admin/error.gif")" alt="" height="20px" width="20px"/>
+}
