@@ -663,7 +663,8 @@ namespace RiverSalaMVC
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="validado">Initial value of the Validado property.</param>
         /// <param name="isAdmin">Initial value of the IsAdmin property.</param>
-        public static Usuario CreateUsuario(global::System.Int32 id, global::System.String nombre, global::System.String apellidos, global::System.Boolean esJugador, global::System.Boolean activo, global::System.String email, global::System.String password, global::System.Boolean validado, global::System.Boolean isAdmin)
+        /// <param name="publicarNoticias">Initial value of the PublicarNoticias property.</param>
+        public static Usuario CreateUsuario(global::System.Int32 id, global::System.String nombre, global::System.String apellidos, global::System.Boolean esJugador, global::System.Boolean activo, global::System.String email, global::System.String password, global::System.Boolean validado, global::System.Boolean isAdmin, global::System.Boolean publicarNoticias)
         {
             Usuario usuario = new Usuario();
             usuario.ID = id;
@@ -675,6 +676,7 @@ namespace RiverSalaMVC
             usuario.Password = password;
             usuario.Validado = validado;
             usuario.IsAdmin = isAdmin;
+            usuario.PublicarNoticias = publicarNoticias;
             return usuario;
         }
 
@@ -923,6 +925,54 @@ namespace RiverSalaMVC
         private global::System.Boolean _IsAdmin;
         partial void OnIsAdminChanging(global::System.Boolean value);
         partial void OnIsAdminChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Numero
+        {
+            get
+            {
+                return _Numero;
+            }
+            set
+            {
+                OnNumeroChanging(value);
+                ReportPropertyChanging("Numero");
+                _Numero = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Numero");
+                OnNumeroChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Numero;
+        partial void OnNumeroChanging(Nullable<global::System.Int32> value);
+        partial void OnNumeroChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean PublicarNoticias
+        {
+            get
+            {
+                return _PublicarNoticias;
+            }
+            set
+            {
+                OnPublicarNoticiasChanging(value);
+                ReportPropertyChanging("PublicarNoticias");
+                _PublicarNoticias = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PublicarNoticias");
+                OnPublicarNoticiasChanged();
+            }
+        }
+        private global::System.Boolean _PublicarNoticias;
+        partial void OnPublicarNoticiasChanging(global::System.Boolean value);
+        partial void OnPublicarNoticiasChanged();
 
         #endregion
     

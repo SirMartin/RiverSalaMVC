@@ -57,6 +57,8 @@
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Validado" Type="bit" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="Numero" Type="int" />
+          <Property Name="PublicarNoticias" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comentario_Noticia">
           <End Role="Noticia" Type="RiverSalaDB.Store.Noticia" Multiplicity="1" />
@@ -156,6 +158,8 @@
           <NavigationProperty Name="Noticia" Relationship="RiverSalaDB.FK_Noticia_Usuario" FromRole="Usuario" ToRole="Noticia" />
           <Property Type="Boolean" Name="Validado" Nullable="false" />
           <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+          <Property Type="Int32" Name="Numero" />
+          <Property Type="Boolean" Name="PublicarNoticias" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comentario_Usuario">
           <End Role="Usuario" Type="RiverSalaDB.Usuario" Multiplicity="1" />
@@ -215,7 +219,9 @@
             <ScalarProperty Name="EsPrivada" ColumnName="EsPrivada" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Usuario"><EntityTypeMapping TypeName="RiverSalaDB.Usuario"><MappingFragment StoreEntitySet="Usuario">
-            <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+            <ScalarProperty Name="PublicarNoticias" ColumnName="PublicarNoticias" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="Validado" ColumnName="Validado" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -248,19 +254,19 @@
     <Diagrams>
       <Diagram Name="RiverSala">
         <EntityTypeShape EntityType="RiverSalaDB.Comentario" Width="1.5" PointX="3" PointY="1.125" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="RiverSalaDB.Noticia" Width="1.5" PointX="3" PointY="3.75" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="RiverSalaDB.Noticia" Width="1.5" PointX="3.125" PointY="4.125" Height="2.5571907552083326" IsExpanded="true" />
         <EntityTypeShape EntityType="RiverSalaDB.Usuario" Width="1.5" PointX="0.75" PointY="2.125" Height="2.9417936197916661" IsExpanded="true" />
         <AssociationConnector Association="RiverSalaDB.FK_Comentario_Usuario" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.8074446614583328" />
           <ConnectorPoint PointX="3" PointY="2.8074446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="RiverSalaDB.FK_Noticia_Usuario" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.4083968098958328" />
-          <ConnectorPoint PointX="3" PointY="4.4083968098958328" />
+          <ConnectorPoint PointX="2.25" PointY="4.7881982421875" />
+          <ConnectorPoint PointX="3.125" PointY="4.7881982421875" />
         </AssociationConnector>
         <AssociationConnector Association="RiverSalaDB.FK_Comentario_Noticia" >
-          <ConnectorPoint PointX="3.75" PointY="3.75" />
-          <ConnectorPoint PointX="3.75" PointY="3.4898893229166661" />
+          <ConnectorPoint PointX="3.8125" PointY="4.125" />
+          <ConnectorPoint PointX="3.8125" PointY="3.4898893229166661" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
