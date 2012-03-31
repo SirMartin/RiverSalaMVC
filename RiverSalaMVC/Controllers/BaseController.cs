@@ -17,10 +17,14 @@ namespace RiverSalaMVC.Controllers
             // Check if this action has Authorization attribute
             object[] attributes = filterContext.ActionDescriptor.GetCustomAttributes(true);
             bool permisosOk = true;
+            String email = String.Empty;
 
             //Recogemos al usuario logueado.
-            String[] arrayIdentity = HttpContext.User.Identity.Name.Split(RiverSalaMVC.Utils.Constantes.IdentitySeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            string email = arrayIdentity[0];
+            if (!HttpContext.User.Identity.Name.Equals(String.Empty))
+            {
+                String[] arrayIdentity = HttpContext.User.Identity.Name.Split(RiverSalaMVC.Utils.Constantes.IdentitySeparator.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                email = arrayIdentity[0];
+            }
             Usuario usuario = db.Usuario.Where(g => g.Email.Equals(email)).FirstOrDefault();
 
             //importante, hay que ir comparando entrando primero en los roles más poderosos            
