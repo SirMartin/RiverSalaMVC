@@ -168,6 +168,10 @@
     <Content Include="Content\images\style\bg.jpg" />
     <Content Include="Content\images\style\escudo.gif" />
     <Content Include="Content\images\sections\tramigest.gif" />
+    <Content Include="Content\images\style\tablesorter\asc.gif" />
+    <Content Include="Content\images\style\tablesorter\bg.gif" />
+    <Content Include="Content\images\style\tablesorter\desc.gif" />
+    <Content Include="Content\images\style\tablesorter\style.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\images\style\banner.jpg" />
     <Content Include="Content\images\style\clock.gif" />
@@ -207,6 +211,10 @@
     <Content Include="Scripts\jquery-1.5.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.metadata.js" />
+    <Content Include="Scripts\jquery.tablesorter.min.js" />
+    <Content Include="Scripts\jquery.tablesorter.pager.css" />
+    <Content Include="Scripts\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

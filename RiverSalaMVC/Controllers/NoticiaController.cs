@@ -239,8 +239,9 @@ namespace RiverSalaMVC.Controllers
         [AuthorizationAttributes.AdminAuthorize]
         public ActionResult Administracion()
         {
-            //Vamos a la acción de HOME, que es la principal.
-            return RedirectToAction("Index", "Home");
+            List<Noticia> noticias = db.Noticia.Include("Usuario").OrderByDescending(g => g.Fecha).ToList();
+
+            return View(noticias);
         }
 
         #endregion
