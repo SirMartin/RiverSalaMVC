@@ -6,16 +6,18 @@
 <table id="tablaAdmin" class="tablesorter">
     <thead>
         <tr>
-            <th width="60px">
+            <th width="50px">
+            </th>
+            <th>
                 Titulo
             </th>
-            <th width="60px">
+            <th width="45px">
                 Autor
             </th>
-            <th width="60px">
+            <th width="45px">
                 Fecha
             </th>
-            <th width="60px">
+            <th width="45px">
                 ¿Privada?
             </th>
         </tr>
@@ -23,6 +25,10 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.Partial("EditRender", Url.Action("Edit", new { id = item.ID}))
+                @Html.Partial("DeleteRender", Url.Action("Delete", new { id = item.ID}))
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Titulo)
             </td>
@@ -38,14 +44,13 @@
         </tr>
     }
 </table>
-
-<div id="pager" class="pager">
+<div id="pager" class="tablesorterPager">
     <form>
-    <img src="../addons/pager/icons/first.png" class="first" />
-    <img src="../addons/pager/icons/prev.png" class="prev" />
+    <img alt="Al principio" title="Al principio" src="@Url.Content("/Content/images/style/tablesorter/pager/first.png")" class="first" />
+    <img alt="Anteriores 10" title="Anteriores 10" src="@Url.Content("/Content/images/style/tablesorter/pager/prev.png")" class="prev" />
     <input type="text" class="pagedisplay" />
-    <img src="../addons/pager/icons/next.png" class="next" />
-    <img src="../addons/pager/icons/last.png" class="last" />
+    <img alt="Siguientes 10" title="Siguientes 10" src="@Url.Content("/Content/images/style/tablesorter/pager/next.png")" class="next" />
+    <img alt="Al final" title="Al final" src="@Url.Content("/Content/images/style/tablesorter/pager/last.png")" class="last" />
     <select class="pagesize">
         <option selected="selected" value="10">10</option>
         <option value="20">20</option>
@@ -54,3 +59,4 @@
     </select>
     </form>
 </div>
+<br /><br />

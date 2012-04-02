@@ -171,6 +171,10 @@
     <Content Include="Content\images\style\tablesorter\asc.gif" />
     <Content Include="Content\images\style\tablesorter\bg.gif" />
     <Content Include="Content\images\style\tablesorter\desc.gif" />
+    <Content Include="Content\images\style\tablesorter\pager\first.png" />
+    <Content Include="Content\images\style\tablesorter\pager\last.png" />
+    <Content Include="Content\images\style\tablesorter\pager\next.png" />
+    <Content Include="Content\images\style\tablesorter\pager\prev.png" />
     <Content Include="Content\images\style\tablesorter\style.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\images\style\banner.jpg" />
