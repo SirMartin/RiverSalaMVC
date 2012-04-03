@@ -1,43 +1,30 @@
 ﻿@model RiverSalaMVC.Noticia
-
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Noticia</legend>
-
-    <div class="display-label">Titulo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Titulo)
-    </div>
-
-    <div class="display-label">Contenido</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Contenido)
-    </div>
-
-    <div class="display-label">Usuario</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Usuario.Nombre)
-    </div>
-
-    <div class="display-label">Fecha</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Fecha)
-    </div>
-
-    <div class="display-label">EsPrivada</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EsPrivada)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
+<h3>
+    ¿Estás seguro de borrar la siguiente noticia?</h3>
+<br />
+<div style="text-align: left">
+    <h2>
+        @Model.Titulo</h2>
+</div>
+<div class="noticia">
+    <img alt="Noticia" class="noborder" src="@Url.Content("/Content/images/style/escudo.gif")" title="escudo" />
+    @Html.Raw(Model.Contenido)</div>
+<p class="post">
+    @Html.ActionLink("Editar Noticia", "Edit", "Noticia", new { id = @Model.ID }, new { @class = "readmore" })
+    <span class="date">Publicada el @Model.Fecha.ToString("dd/MM/yyyy a la\\s HH:mm") por
+        @Html.ActionLink(Model.Usuario.Nombre, "Details", "Usuario", new { id = Model.IdUsuario }, null)</span>
+    <span>¿Es Privada?
+        @Html.Partial("BoolRender", Model.EsPrivada)
+    </span>
+</p>
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Borrar" />
+        |
+        @Html.ActionLink("Volver", "Administracion")
     </p>
 }
