@@ -17,7 +17,7 @@ else
         @if (Request.IsAuthenticated)
         {
             <li>@Html.ActionLink("Publicar Noticia", "Create", "Noticia", null, null)</li>
-            <li><a href="index.php?pag=listacorreo.php">Mensaje Masivo</a></li>
+            <li>Mensaje Masivo</li>
             if (isAdmin)
             {
             <li>@Html.ActionLink("Administración", "Index", "Admin")</li>

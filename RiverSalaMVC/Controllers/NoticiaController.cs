@@ -249,18 +249,23 @@ namespace RiverSalaMVC.Controllers
                 ViewBag.FechasHistorico = fechas;
 
                 //Vamos a la vista.
-                noticias = null;
-                return View(noticias);
+                List<NoticiaModel> news = null;
+                return View(news);
             }
             else
             {
                 //Es un mes en concreto.
-                DateTime diaInicial = new DateTime(year.Value, mes.Value, 1);
-                DateTime diaFinal = new DateTime(year.Value, mes.Value, DateTime.DaysInMonth(year.Value,mes.Value));
-                List<Noticia> noticias = db.Noticia.Where(not => not.Fecha.Date >= diaInicial.Date && not.Fecha.Date <= diaFinal.Date).ToList();
+                DateTime diaInicial = new DateTime(year.Value, mes.Value, 1, 0, 0, 0);
+                DateTime diaFinal = new DateTime(year.Value, mes.Value, DateTime.DaysInMonth(year.Value, mes.Value), 23, 59, 59);
+                List<Noticia> noticias = db.Noticia.Include("Usuario").Where(not => not.Fecha >= diaInicial && not.Fecha <= diaFinal).OrderByDescending(g => g.Fecha).ToList();
+
+                //Convertimos el contenido a HTML.
+                noticias.ForEach(g => g.Contenido = Utils.Utils.TranslateBBCodeToHtml(g.Contenido, HttpContext));
+
+                List<NoticiaModel> news = Utils.Utils.ConvertNoticiaToNoticiaModel(noticias);
 
                 //Vamos a la vista.
-                return View(noticias);
+                return View(news);
             }
         }
 
