@@ -2,35 +2,44 @@
 @{
     ViewBag.Title = "Index";
 }
-<table id="tablaAdmin" class="tablesorter">
+<table id="tablaAdminUsuarios" class="tablesorter">
     <thead>
         <tr>
-            <th width="60px">
+            <th width="45px">
+            </th>
+            <th width="80px">
                 Nombre
             </th>
             <th width="80px">
                 Apellidos
             </th>
             <th width="60px">
-                Posicion
+                Posición
             </th>
-            <th width="25px">
-                ¿Jugador?
+            <th title="Número" align="center" width="10px">
+                Núm.
             </th>
-            <th width="25px">
-                Activo
+            <th title="¿Es jugador?" align="center" width="25px">
+                Jug.
             </th>
-            <th width="25px">
-                Validado
+            <th title="Activo" align="center" width="25px">
+                Act.
             </th>
-            <th width="25px">
-                Admin
+            <th title="Validado" align="center" width="25px">
+                Val.
+            </th>
+            <th align="center" width="25px">
+                Tipo Usuario
             </th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.Partial("EditRender", Url.Action("Edit", new { id = item.ID }))
+                @Html.Partial("DeleteRender", Url.Action("Delete", new { id = item.ID }))
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
@@ -39,6 +48,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Posicion)
+            </td>
+            <td align="center">
+                @Html.DisplayFor(modelItem => item.Numero)
             </td>
             <td align="center">
                 @Html.Partial("BoolRender", item.EsJugador)
@@ -50,8 +62,36 @@
                 @Html.Partial("BoolRender", item.Validado)
             </td>
             <td align="center">
-                @Html.Partial("BoolRender", item.IsAdmin)
+                @if (item.IsAdmin)
+                {
+                    @:Admin
+                }
+                else if (item.PublicarNoticias)
+                {
+                    @:Noticias
+                }
+                else
+                {
+                    @:User
+                                }
             </td>
         </tr>
     }
 </table>
+<div id="pager" class="tablesorterPager">
+    <form>
+    <img alt="Al principio" title="Al principio" src="@Url.Content("/Content/images/style/tablesorter/pager/first.png")" class="first" />
+    <img alt="Anteriores 10" title="Anteriores 10" src="@Url.Content("/Content/images/style/tablesorter/pager/prev.png")" class="prev" />
+    <input type="text" class="pagedisplay" />
+    <img alt="Siguientes 10" title="Siguientes 10" src="@Url.Content("/Content/images/style/tablesorter/pager/next.png")" class="next" />
+    <img alt="Al final" title="Al final" src="@Url.Content("/Content/images/style/tablesorter/pager/last.png")" class="last" />
+    <select class="pagesize">
+        <option selected="selected" value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+    </select>
+    </form>
+</div>
+<br />
+<br />

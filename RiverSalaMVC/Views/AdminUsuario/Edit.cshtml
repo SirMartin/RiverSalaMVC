@@ -1,21 +1,40 @@
 ﻿@model RiverSalaMVC.Usuario
-
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#IsAdmin").click(function () {
+            if ($("#IsAdmin").is(':checked')) {
+                //Si lo estamos activando, si esta activado el otro, lo desactivamos.
+                if ($("#PublicarNoticias").is(':checked')) {
+                    //Desactivamos el de publicar noticias.
+                    $("#PublicarNoticias").attr('checked', false);
+                }
+            }
+        });
+        $("#PublicarNoticias").click(function () {
+            if ($("#PublicarNoticias").is(':checked')) {
+                //Si lo estamos activando, si esta activado el otro, lo desactivamos.
+                if ($("#IsAdmin").is(':checked')) {
+                    //Desactivamos el de is admin.
+                    $("#IsAdmin").attr('checked', false);
+                }
+            }
+        });
+    });
+</script>
+<h2>
+    Editar</h2>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Usuario</legend>
-
         @Html.HiddenFor(model => model.ID)
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Nombre)
         </div>
@@ -23,7 +42,6 @@
             @Html.EditorFor(model => model.Nombre)
             @Html.ValidationMessageFor(model => model.Nombre)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Apellidos)
         </div>
@@ -31,15 +49,13 @@
             @Html.EditorFor(model => model.Apellidos)
             @Html.ValidationMessageFor(model => model.Apellidos)
         </div>
-
         <div class="editor-label">
-            @Html.LabelFor(model => model.EsJugador)
+            ¿Es Jugador?
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.EsJugador)
             @Html.ValidationMessageFor(model => model.EsJugador)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Posicion)
         </div>
@@ -47,45 +63,52 @@
             @Html.EditorFor(model => model.Posicion)
             @Html.ValidationMessageFor(model => model.Posicion)
         </div>
-
         <div class="editor-label">
-            @Html.LabelFor(model => model.Activo)
+            ¿Está en activo?
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Activo)
             @Html.ValidationMessageFor(model => model.Activo)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { disabled = true})
         </div>
-
         <div class="editor-label">
-            @Html.LabelFor(model => model.Validado)
+            ¿Está validado?
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Validado)
             @Html.ValidationMessageFor(model => model.Validado)
         </div>
-
         <div class="editor-label">
-            @Html.LabelFor(model => model.IsAdmin)
+            ¿Es administrador?
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IsAdmin)
             @Html.ValidationMessageFor(model => model.IsAdmin)
         </div>
-
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Numero)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Numero, new { style = "width: 20px;" })
+            @Html.ValidationMessageFor(model => model.Numero)
+        </div>
+        <div class="editor-label">
+            ¿Puede publicar noticias?
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PublicarNoticias)
+            @Html.ValidationMessageFor(model => model.PublicarNoticias)
+        </div>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Guardar Cambios" />
         </p>
     </fieldset>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver", "Index")
 </div>

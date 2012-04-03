@@ -20,15 +20,6 @@ namespace RiverSalaMVC.Controllers
         {
             return View(db.Usuario.ToList());
         }
-
-        //
-        // GET: /AdminUsuario/Details/5
-
-        public ViewResult Details(int id)
-        {
-            Usuario usuario = db.Usuario.Single(u => u.ID == id);
-            return View(usuario);
-        }
         
         //
         // GET: /AdminUsuario/Edit/5
@@ -47,9 +38,20 @@ namespace RiverSalaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Usuario.Attach(usuario);
-                db.ObjectStateManager.ChangeObjectState(usuario, EntityState.Modified);
+                Usuario user = db.Usuario.Where(g => g.ID == usuario.ID).FirstOrDefault();
+                //Hacemos los cambios necesarios.
+                user.Nombre = usuario.Nombre;
+                user.Apellidos = usuario.Apellidos;
+                user.EsJugador = usuario.EsJugador;
+                user.Posicion = usuario.Posicion;
+                user.Activo = usuario.Activo;
+                user.Validado = usuario.Validado;
+                user.IsAdmin = usuario.IsAdmin;
+                user.Numero = usuario.Numero;
+                user.PublicarNoticias = usuario.PublicarNoticias;
+                //Guardamos los cambios.
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(usuario);

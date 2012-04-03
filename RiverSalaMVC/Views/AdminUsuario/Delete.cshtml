@@ -2,57 +2,58 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar Usuario</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Estás seguro de eliminar al usuario?</h3>
 <fieldset>
     <legend>Usuario</legend>
 
-    <div class="display-label">Nombre</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Nombre)
+    <div class="display-label">Nombre:&nbsp;<b>
+        @Html.DisplayFor(model => model.Nombre)</b>
     </div>
-
-    <div class="display-label">Apellidos</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Apellidos)
+    <br />
+    <div class="display-label">Apellidos::&nbsp;<b>
+        @Html.DisplayFor(model => model.Apellidos)</b>
     </div>
-
-    <div class="display-label">EsJugador</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EsJugador)
+    <br />
+    <div class="display-label">¿Es Jugador?&nbsp;
+        @Html.Partial("BoolRender" , Model.EsJugador)
     </div>
-
-    <div class="display-label">Posicion</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Posicion)
+    <br />
+    <div class="display-label">Posición&nbsp;<b>
+        @Html.DisplayFor(model => model.Posicion)</b>
     </div>
-
-    <div class="display-label">Activo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Activo)
+    <br />
+    <div class="display-label">¿Está en activo?&nbsp;
+        @Html.Partial("BoolRender", Model.Activo)
     </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
+    <br />
+    <div class="display-label">Email:&nbsp;
         @Html.DisplayFor(model => model.Email)
     </div>
-
-    <div class="display-label">Validado</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Validado)
+    <br />
+    <div class="display-label">¿Está validado?&nbsp;
+        @Html.Partial("BoolRender", Model.Validado)
     </div>
-
-    <div class="display-label">IsAdmin</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsAdmin)
+    <br />
+    <div class="display-label">¿Es administrador?&nbsp;
+        @Html.Partial("BoolRender", Model.IsAdmin)
+    </div>
+    <br />
+    <div class="display-label">Número:&nbsp;
+        @Html.DisplayFor(model => model.Numero)
+    </div>
+    <br />
+    <div class="display-label">¿Puede publicar noticias?&nbsp;
+        @Html.Partial("BoolRender", Model.PublicarNoticias)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Eliminar Usuario" /> |
+        @Html.ActionLink("Volver", "Index")
     </p>
 }
