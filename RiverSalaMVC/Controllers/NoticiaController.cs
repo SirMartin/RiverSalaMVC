@@ -152,7 +152,7 @@ namespace RiverSalaMVC.Controllers
 
             return View(noticia);
         }
-        
+
         #endregion
 
         #region Editar
@@ -226,10 +226,42 @@ namespace RiverSalaMVC.Controllers
 
         #region Archivo
 
-        public ActionResult Historico()
+        public ActionResult Historico(int? mes, int? year)
         {
-            //Vamos a la acción de HOME, que es la principal.
-            return RedirectToAction("Index", "Home");
+            //Miramos si es un mes en concreto o son simplemente el indice.
+            if ((mes == null) && (year == null))
+            {
+                //Es indice.
+                List<Noticia> noticias = db.Noticia.ToList();
+                List<DateTime> fechas = new List<DateTime>();
+                //Recorremos las noticias y cogemos los meses y años distintos.
+                foreach (Noticia noticia in noticias)
+                {
+                    DateTime fecha = new DateTime(noticia.Fecha.Year, noticia.Fecha.Month, 1);
+                    if (!fechas.Contains(fecha))
+                    {
+                        //No contiene la fecha, la añadimos.
+                        fechas.Add(fecha);
+                    }
+                }
+
+                //Pasamos la lista a la vista, para mostrarlo.
+                ViewBag.FechasHistorico = fechas;
+
+                //Vamos a la vista.
+                noticias = null;
+                return View(noticias);
+            }
+            else
+            {
+                //Es un mes en concreto.
+                DateTime diaInicial = new DateTime(year.Value, mes.Value, 1);
+                DateTime diaFinal = new DateTime(year.Value, mes.Value, DateTime.DaysInMonth(year.Value,mes.Value));
+                List<Noticia> noticias = db.Noticia.Where(not => not.Fecha.Date >= diaInicial.Date && not.Fecha.Date <= diaFinal.Date).ToList();
+
+                //Vamos a la vista.
+                return View(noticias);
+            }
         }
 
         #endregion
