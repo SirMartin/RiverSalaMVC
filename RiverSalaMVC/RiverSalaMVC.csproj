@@ -87,6 +87,7 @@
     <Compile Include="Controllers\AdminUsuarioController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
+    <Compile Include="Controllers\ListaCorreoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\NoticiaController.cs" />
@@ -95,6 +96,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ListaCorreoModels.cs" />
     <Compile Include="Models\NoticiaModels.cs" />
     <Compile Include="Models\Security\AuthorizationAttributes.cs" />
     <Compile Include="Models\Security\RiverSalaMembershipProvider.cs" />
@@ -104,6 +106,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RiverSala.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\MailService.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,15 +289,6 @@
     <Content Include="Views\Links\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\AdminUsuario\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminUsuario\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminUsuario\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Club\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +314,18 @@
     <Content Include="Views\Shared\DeleteRender.cshtml" />
     <Content Include="Views\Shared\DetailsRender.cshtml" />
     <Content Include="Views\Shared\EditRender.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminUsuario\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminUsuario\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Noticia\Historico.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ListaCorreo\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using RiverSalaMVC;
 using RiverSalaMVC.Models;
 using RiverSalaMVC.Models.Security;
+using RiverSalaMVC.Utils;
 
 namespace RiverSalaMVC.Controllers
 {
@@ -147,6 +148,10 @@ namespace RiverSalaMVC.Controllers
             {
                 db.Noticia.AddObject(noticia);
                 db.SaveChanges();
+
+                //Enviamos un mail con la noticia.
+                MailService.SendEmailNuevaNoticia(noticia);
+
                 return RedirectToAction("Index");
             }
 
