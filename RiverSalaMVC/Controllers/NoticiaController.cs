@@ -87,16 +87,32 @@ namespace RiverSalaMVC.Controllers
             comentario.Fecha = DateTime.Now;
             comentario.IdNoticia = id;
 
-            //Guardamos el comentario.
-            db.Comentario.AddObject(comentario);
-            db.SaveChanges();
+            //Recuperamos el último comentario insertado.
+            Comentario ultimoComentario = db.Comentario.OrderByDescending(g => g.ID).FirstOrDefault();
+
+            //Comprobamos si el último comentario insertado es el mismo, por si le han dado doble click.
+            //Solo lo inserta, si es distinto.
+            if (!ultimoComentario.Texto.Equals(comentario.Texto))
+            {
+                //Guardamos el comentario.
+                db.Comentario.AddObject(comentario);
+                db.SaveChanges();
+            }
 
             //Recuperamos la noticia.
             Noticia noticia = db.Noticia.Include("Usuario").Single(n => n.ID == id);
+
+            //Convertimos el contenido de la noticia a HTML.
+            noticia.Contenido = Utils.Utils.TranslateBBCodeToHtml(noticia.Contenido, HttpContext);
+
+            //La convertimos al modelo para mostrar.
             NoticiaModel notMod = Utils.Utils.ConvertNoticiaToNoticiaModel(noticia);
 
             //Recuperamos los comentarios de la noticia y los pasamos en un ViewBag.
             List<Comentario> comentarios = db.Comentario.Include("Usuario").Where(c => c.IdNoticia == noticia.ID).ToList();
+            //Convertimos el contenido de los comentarios a HTML.
+            comentarios.ForEach(g => g.Texto = Utils.Utils.TranslateBBCodeToHtml(g.Texto, HttpContext));
+            //Los pasamos en un ViewBag.
             ViewBag.Comentarios = comentarios;
 
             //Cogemos los usuarios con su número de posteos.
