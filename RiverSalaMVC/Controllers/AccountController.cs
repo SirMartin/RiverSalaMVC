@@ -15,16 +15,12 @@ namespace RiverSalaMVC.Controllers
         private DB_38969_riversalaEntities db = new DB_38969_riversalaEntities();
         RiverSalaMembershipProvider RiverSalaMembership = new RiverSalaMembershipProvider();
 
-        //
-        // GET: /Account/LogOn
+        #region LogOn
 
         public ActionResult LogOn()
         {
             return View();
         }
-
-        //
-        // POST: /Account/LogOn
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
@@ -63,8 +59,9 @@ namespace RiverSalaMVC.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/LogOff
+        #endregion
+
+        #region LogOff
 
         public ActionResult LogOff()
         {
@@ -73,16 +70,14 @@ namespace RiverSalaMVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
+        #endregion
+
+        #region Register
 
         public ActionResult Register()
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
 
         [HttpPost]
         public ActionResult Register(RegisterModel model)
@@ -108,17 +103,15 @@ namespace RiverSalaMVC.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePassword
+        #endregion
+
+        #region ChangePassword
 
         [Authorize]
         public ActionResult ChangePassword()
         {
             return View();
         }
-
-        //
-        // POST: /Account/ChangePassword
 
         [Authorize]
         [HttpPost]
@@ -154,15 +147,19 @@ namespace RiverSalaMVC.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePasswordSuccess
+        #endregion
+
+        #region ChangePasswordSuccess
 
         public ActionResult ChangePasswordSuccess()
         {
             return View();
         }
 
+        #endregion
+
         #region Status Codes
+
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
@@ -170,36 +167,37 @@ namespace RiverSalaMVC.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "El nombre de usuario existe. Por favor introduzca un nombre de usuario distinto.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "Ya existe una cuenta con esa dirección de e-mail. Por favor introduzca una dirección de e-mail distinta.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "La contraseña introducida es incorrecta. Por favor introduzca una contraseña correcta.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
+                    return "La dirección de e-mail introducida es incorrecta. Por favor compruebela y corríjala.";
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                    return "La respuesta a la pregunta para recuperar la contraseña es incorrecta. Por favor compruebela y corríjala.";
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "La pregunta suministrada para recuperar su contraseña no es correcta. Por favor compruebela y corríjala.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "El nombre de usuario elegido no es correcto. Por favor compruebelo y corríjalo.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "El sistema de autenticación ha devuelto un error. Por favor verifique su información y vuelva a probar. Si el problema persiste, por favor contacte con el administrador.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "La creación del usuario ha sido cancelada. Por favor verifique su información y vuelva a probar. Si el problema persiste, por favor contacte con el administrador.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Ha ocurrido un error desconocido. Por favor verifique su información y vuelva a probar. Si el problema persiste, por favor contacte con el administrador.";
             }
         }
+
         #endregion
     }
 }
